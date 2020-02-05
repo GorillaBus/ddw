@@ -1,0 +1,25 @@
+[
+  {
+    "visible": true,
+    "strokeColor": null,
+    "fillColor": "blue",
+    "points": [
+      {
+        "x": -1,
+        "y": -1
+      },
+      {
+        "x": 1,
+        "y": -1
+      },
+      {
+        "x": 1,
+        "y": 1
+      },
+      {
+        "x": -1,
+        "y": 1
+      }
+    ]
+  }
+]
