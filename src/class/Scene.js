@@ -46,36 +46,33 @@ class Scene {
 		for (let i=0, len=this.bodies.length; i<len; i++) {
 			const body = this.bodies[i];
 			this.drawer.draw(body.worldTransform.getShapes());
-
 			if (this.debug) {
-				//this.drawer.drawBoundingBox(body.worldTransform.getBoundingBox());
+				this.drawer.drawPolygon(body.worldTransform.boundingBox);
 			}
 		}
 	}
 
 	drawViewport() {
 
-		// Rotate viewport rectangle back to initial angle
-		const rectangle = this.viewport.worldTransform.transform(0, 1).getBoundingBox();
+		// Cache the viewport model: rotated back to its initial angle
+		const viewportModel = this.viewport.worldTransform.transform(0, 1).boundingBox;
 
 		for (let i=0, len=this.bodies.length; i<len; i++) {
 			const body = this.bodies[i];
 
 			if (!body.visible) continue;
-			const circle = {
-				x: body.worldTransform.center.getX(),
-				y: body.worldTransform.center.getY(),
-				radius: body.worldTransform.radius
-			};
 
 			// Check if body is inside viewport
-			const collides = this.intersector.circleInRectangle(circle, rectangle);
-			if (collides) {
+
+			const bodyModel = body.worldTransform.boundingBox;
+			const intersects = this.intersector.circleInRectangle(bodyModel, viewportModel);
+
+			if (intersects) {
 				body.transformToView(this.viewport);
 				this.drawer.draw(body.viewTransform.getShapes());
 
 				if (this.debug) {
-					//this.drawer.drawBoundingBox(body.viewTransform.getBoundingBox());
+					this.drawer.drawPolygon(body.viewTransform.boundingBox);
 				}
 			}
 		}

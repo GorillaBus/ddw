@@ -5,11 +5,7 @@ class Model {
 	constructor(settings) {
 		this.shapes = this.loadShapes(settings);
 		this.bounds = this.getBounds();
-		this.center = this.getCenter();
-		this.width = 0;
-		this.height = 0;
-		this.radius = 0;
-		this.initDimensions();
+		this.boundingBox = this.getBoundingBox();
 	}
 
 	loadShapes(modelData) {
@@ -34,25 +30,22 @@ class Model {
 	}
 
 	getBoundingBox() {
-		return {
-			x: this.bounds.xMin,
-			y: this.bounds.yMin,
-			width: this.width,
-			height: this.height
-		};
-	}
-
-	getCenter() {
-		return new Vector({
-			x: (this.bounds.xMin + this.bounds.xMax) / 2,
-			y: (this.bounds.yMin + this.bounds.yMax) / 2
+		return this.createShape({
+			points: [{
+				x: this.bounds.xMin,
+				y: this.bounds.yMin,
+			},{
+				x: this.bounds.xMin,
+				y: this.bounds.yMax,
+			},{
+				x: this.bounds.xMax,
+				y: this.bounds.yMax,
+			},{
+				x: this.bounds.xMax,
+				y: this.bounds.yMin,
+			}],
+			strokeColor: "#94ec5d"
 		});
-	}
-
-	initDimensions() {
-		this.width = this.bounds.xMax - this.bounds.xMin;
-		this.height = this.bounds.yMax - this.bounds.yMin;
-		this.radius = Math.max(this.width, this.height) / 2;
 	}
 
 	getShapes() {

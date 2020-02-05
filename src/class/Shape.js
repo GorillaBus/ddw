@@ -8,8 +8,10 @@ class Shape {
 		});
 		this.visible = settings.visible === false ? false:true;
 		this.bounds = this.getBounds();
-		this.boundingBox = this.getBoundingBox();
-
+		this.center = this.getCenter();
+		this.width = this.bounds.xMax - this.bounds.xMin;
+		this.height = this.bounds.yMax - this.bounds.yMin;
+		this.radius = Math.max(this.width, this.height) / 2;
 		this.strokeColor = settings.strokeColor;
 		this.fillColor = settings.fillColor;
 	}
@@ -25,13 +27,11 @@ class Shape {
 		};
 	}
 
-	getBoundingBox() {
-		return [
-			new Vector({ x: this.bounds.xMin, y: this.bounds.yMin }),
-			new Vector({ x: this.bounds.xMax, y: this.bounds.yMin }),
-			new Vector({ x: this.bounds.xMax, y: this.bounds.yMax }),
-			new Vector({ x: this.bounds.xMin, y: this.bounds.yMax }),
-		];
+	getCenter() {
+		return new Vector({
+			x: (this.bounds.xMin + this.bounds.xMax) / 2,
+			y: (this.bounds.yMin + this.bounds.yMax) / 2
+		});
 	}
 
 	copy() {

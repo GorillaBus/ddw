@@ -7,33 +7,30 @@ class Drawer {
 	draw(shapes) {
 		shapes.forEach(shape => {
 			if (shape.visible) {
-				this.drawPolygon(shape.points, shape.strokeColor, shape.fillColor);
+				this.drawPolygon(shape);
 			}
 		});
 	}
 
-	drawBoundingBox(shape) {
-		this.drawPolygon([shape.boundingBox], "#ffffff");
-	}
+	drawPolygon(shape) {
+		const ptsLength = shape.points.length;
 
-	drawPolygon(points, strokeColor, fillColor) {
-		const ptsLength = points.length;
 		this.ctx.beginPath();
 		for (let i = 0; i<ptsLength; i++) {
-			const a = points[i];
-			const b = i === ptsLength - 1 ? points[0] : points[i + 1];
+			const a = shape.points[i];
+			const b = i === ptsLength - 1 ? shape.points[0] : shape.points[i + 1];
 			if (i === 0) {
 				this.ctx.moveTo(a.getX(), a.getY());
 			}
 			this.ctx.lineTo(b.getX(), b.getY());
 		}
 		this.ctx.closePath();
-		if (strokeColor) {
-			this.ctx.strokeStyle = strokeColor || null;
+		if (shape.strokeColor) {
+			this.ctx.strokeStyle = shape.strokeColor;
 			this.ctx.stroke();
 		}
-		if (fillColor) {
-			this.ctx.fillStyle = fillColor || null;
+		if (shape.fillColor) {
+			this.ctx.fillStyle = shape.fillColor;
 			this.ctx.fill();
 		}
 	}
