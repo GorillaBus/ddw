@@ -34,6 +34,7 @@ class Body {
 
     // Model
     this.model = new Model(settings.modelData);
+
     this.transformToWorld();
   }
 

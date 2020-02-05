@@ -2,7 +2,29 @@ const Body = require("./Body");
 
 class Viewport extends Body {
 	constructor(settings) {
-		super(settings);
+		const x = settings.width / 2;
+		const y = settings.height / 2;
+
+		super({
+				x: 0,
+				y: 0,
+				angle: 0,
+				scale: settings.scale,
+				modelData: {
+					debugColor: "#ffffff",
+					shapes: [{
+						visible: false,
+						points: [
+							{ x: -x, y: -y },
+							{ x, y: -y },
+							{ x, y },
+							{ x: -x, y }
+						]
+					}]
+				}
+			});
+
+
 		this.attachedTo = settings.attachedTo || false;
 	}
 

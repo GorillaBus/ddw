@@ -3,13 +3,14 @@ const Shape = require('./Shape');
 
 class Model {
 	constructor(settings) {
-		this.shapes = this.loadShapes(settings);
+		this.debugColor = settings.debugColor || "#94ec5d";
+		this.shapes = this.loadShapes(settings.shapes);
 		this.bounds = this.getBounds();
 		this.boundingBox = this.getBoundingBox();
 	}
 
-	loadShapes(modelData) {
-		return modelData.map(m => this.createShape(m));
+	loadShapes(shapes) {
+		return shapes.map(m => this.createShape(m));
 	}
 
 	getBounds() {
@@ -29,7 +30,7 @@ class Model {
 		};
 	}
 
-	getBoundingBox() {
+	getBoundingBox(settings) {
 		return this.createShape({
 			points: [{
 				x: this.bounds.xMin,
@@ -44,7 +45,7 @@ class Model {
 				x: this.bounds.xMax,
 				y: this.bounds.yMin,
 			}],
-			strokeColor: "#94ec5d"
+			strokeColor: this.debugColor
 		});
 	}
 
@@ -91,7 +92,10 @@ class Model {
 			};
 		});
 
-		return new Model(shapeData);
+		return new Model({
+			debugColor: this.debugColor,
+			shapes: shapeData
+		});
 	}
 
 	transformViewpoint(view, r, s) {
@@ -110,7 +114,10 @@ class Model {
 				strokeColor: shape.strokeColor
 			};
 		});
-		return new Model(shapeData);
+		return new Model({
+			debugColor: this.debugColor,
+			shapes: shapeData
+		});
 	}
 
 	transformView(view) {
@@ -134,7 +141,10 @@ class Model {
 			};
 
 		});
-		return new Model(shapeData);
+		return new Model({
+			debugColor: this.debugColor,
+			shapes: shapeData
+		});
 	}
 
 }
