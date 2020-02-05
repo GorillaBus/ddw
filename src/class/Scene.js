@@ -20,7 +20,7 @@ class Scene {
 		}];
 		this.view = settings.view || "viewport";
 		this.viewScale = settings.viewScale || 1;
-		this.debug = true; //settings.debug || false;
+		this.debug = settings.debug || false;
 		this.viewport = settings.viewport;
 		this.drawer = settings.drawer;
 		this.intersector = settings.intersector;
