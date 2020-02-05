@@ -4,7 +4,6 @@ class Viewport extends Body {
 	constructor(settings) {
 		const x = settings.width / 2;
 		const y = settings.height / 2;
-
 		super({
 				x: 0,
 				y: 0,
@@ -23,7 +22,6 @@ class Viewport extends Body {
 					}]
 				}
 			});
-
 
 		this.attachedTo = settings.attachedTo || false;
 	}
