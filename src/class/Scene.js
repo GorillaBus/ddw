@@ -24,7 +24,7 @@ class Scene {
 		this.viewport = settings.viewport;
 		this.drawer = settings.drawer;
 		this.intersector = settings.intersector;
-
+		this.collisionResolver = settings.collisionResolver;
 		this.bodies = [];
 
 		this.init();

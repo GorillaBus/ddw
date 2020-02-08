@@ -4,7 +4,7 @@ const Shape = require("./src/class/Shape");
 const Model = require("./src/class/Model");
 const Body = require("./src/class/Body");
 const Intersector = require("./src/class/Intersector");
-const Collisioner = require("./src/class/Collisioner");
+const CollisionResolver = require("./src/class/CollisionResolver");
 const Drawer = require("./src/class/Drawer");
 const Viewport = require("./src/class/Viewport");
 const Scene = require("./src/class/Scene");
@@ -19,7 +19,7 @@ module.exports = {
 	Model,
 	Body,
 	Intersector,
-	Collisioner,
+	CollisionResolver,
 	Drawer,
 	Viewport,
 	Scene,
