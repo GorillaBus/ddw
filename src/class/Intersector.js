@@ -59,6 +59,26 @@ class Intersector {
 		const dy = distY - rectangle.height / 2;
 		return (dx * dx + dy * dy <= (circle.radius * circle.radius));
 	}
+
+	circleCircle(circleShape1, circleShape2) {
+		const circle1 = this.getBoundingCircle(circleShape1);
+		const circle2 = this.getBoundingCircle(circleShape2);
+
+		// Get the Distance vector
+		const xDist = circle1.x - circle2.x;
+		const yDist = circle1.y - circle2.y;
+
+		// We'll save a Math.sqrt() to verify distances like this:
+		const distSquared = (xDist * xDist) + (yDist * yDist);
+		const radiusSquared = (circle1.radius + circle2.radius) * (circle1.radius + circle2.radius);
+
+		// Collision check
+		if (distSquared < radiusSquared) {
+			return { x: xDist, y: yDist, dist_squared: distSquared };
+		}
+
+		return false;
+	}
 }
 
 module.exports = Intersector;
