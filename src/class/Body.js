@@ -82,7 +82,9 @@ class Body {
 		this.model.transformViewpoint(view, this.angle, this.scale) : this.worldTransform.transformView(view, true);
 	}
 
-	gravitateTo(target, gravityFactor) {
+	gravitateTo(target, G) {
+		G = G || 1;
+
 		const diff = target.location.substract(this.location);
 		const distance = diff.getLength();
 		const minDistance = target.getRadius() + this.getRadius();
@@ -91,7 +93,11 @@ class Body {
 			return;
 		}
 
-		const force = this.mass * target.mass / (distance * distance);
+
+		//F = G * M * (m / r2)
+		const M = this.mass + target.mass;
+
+		const force = G * M * (target.mass / (distance * distance));
 		diff.normalize();
 		diff.multiplyBy(force);
 		this.velocity.addTo(diff);
