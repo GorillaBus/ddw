@@ -15,27 +15,27 @@ class CollisionResolver {
 		if (dotProduct > 0) {
 
 			// The resulting force from the collision (angle difference + velocity difference)
-			let collisionScale = dotProduct / intersection.dist_squared;
+			const collisionScale = dotProduct / intersection.dist_squared;
 
 			// Collision Vector:
-			let collision = {
+			const collision = {
 				x: intersection.x * collisionScale,
 				y: intersection.y * collisionScale
 			};
 
 			// 2D Elastic collision
-			let combinedMass = body1.mass + body2.mass;
-			let collisionWeight0 = (2 * body2.mass / combinedMass) * 0.5; // 0.5 is restitution
-			let collisionWeight1 = (2 * body1.mass / combinedMass) * 0.5;
+			const combinedMass = body1.mass + body2.mass;
+			const collisionWeight1 = (2 * body2.mass / combinedMass) * 0.5;
+			const collisionWeight2 = (2 * body1.mass / combinedMass) * 0.5;
 
 			const collisionResult1 = new Vector({
-				x: collisionWeight0 * collision.x,
-				y: collisionWeight0 * collision.y
+				x: collisionWeight1 * collision.x,
+				y: collisionWeight1 * collision.y
 			});
 
 			const collisionResult2 = new Vector({
-				x: collisionWeight1 * collision.x,
-				y: collisionWeight1 * collision.y
+				x: collisionWeight2 * collision.x,
+				y: collisionWeight2 * collision.y
 			})
 			.multiply(-1);
 
