@@ -89,14 +89,13 @@ class Body {
 		const distance = diff.getLength();
 		const minDistance = target.getRadius() + this.getRadius();
 
+		// Avoid gravity force if bodies are intersected
 		if (minDistance > distance) {
 			return;
 		}
 
-
-		//F = G * M * (m / r2)
+		// F = G * M * (m / r2)
 		const M = this.mass + target.mass;
-
 		const force = G * M * (target.mass / (distance * distance));
 		diff.normalize();
 		diff.multiplyBy(force);
