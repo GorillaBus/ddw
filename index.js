@@ -3,6 +3,7 @@ const Vector = require("./src/class/Vector");
 const Shape = require("./src/class/Shape");
 const Model = require("./src/class/Model");
 const Body = require("./src/class/Body");
+const BodyManager = require("./src/class/BodyManager");
 const Intersector = require("./src/class/Intersector");
 const CollisionResolver = require("./src/class/CollisionResolver");
 const Drawer = require("./src/class/Drawer");
@@ -18,6 +19,7 @@ module.exports = {
 	Shape,
 	Model,
 	Body,
+	BodyManager,
 	Intersector,
 	CollisionResolver,
 	Drawer,
