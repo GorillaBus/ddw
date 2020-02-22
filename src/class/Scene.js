@@ -59,6 +59,10 @@ class Scene {
 		this.bodyManager.update();
 	}
 
+	interactBodies() {
+		this.bodyManager.runInnteractions();
+	}
+
 	print(text, x, y) {
 		x = x || 200;
 		y = y || 200;

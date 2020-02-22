@@ -72,26 +72,27 @@ class Model {
 
 	transform(r, s, t) {
 		t = t || new Vector();
-
-		const shapeData = this.shapes.map(shape => {
-			const transformedPoints = shape.points.map(point => {
-				const newPoint = point.copy();
+		const shapeData = [];
+		for (let i=0,len=this.shapes.length; i<len; i++) {
+			const shape = this.shapes[i];
+			const transformedPoints = [];
+			for (let j=0,len=shape.points.length; j<len; j++) {
+				const newPoint = shape.points[j].copy();
 				newPoint.rotateBy(r);
 				newPoint.multiplyBy(s);
 				newPoint.addTo(t)
-				return {
+				transformedPoints.push({
 					x: newPoint.getX(),
 					y: newPoint.getY()
-				};
-			});
-			return {
+				});
+			}
+			shapeData.push({
 				points: transformedPoints,
 				visible: shape.visible,
 				fillColor: shape.fillColor,
 				strokeColor: shape.strokeColor
-			};
-		});
-
+			});
+		}
 		return new Model({
 			debugColor: this.debugColor,
 			shapes: shapeData

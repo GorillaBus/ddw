@@ -1,13 +1,13 @@
-
 class BodyManager {
 
 	constructor(settings) {
 		this.debug = settings.debug || false;
 		this.bodies = settings.bodies || [];
-
+		this.viewport = null;
 		this.drawer = settings.drawer;
 		this.intersector = settings.intersector;
 		this.collisionResolver = settings.collisionResolver;
+		this.interactions = settings.interactions || [];
 	}
 
 	setViewport(viewport) {
@@ -23,14 +23,58 @@ class BodyManager {
 	}
 
 	update() {
+		for (let j=0,len=this.interactions.length; j<len; j++) this.interactions[j].resetGrid();
+
 		for (let i=0, len=this.bodies.length; i<len; i++) {
 			const body = this.bodies[i];
 			body.update();
 			body.transformToWorld();
+
+			/* Only run on non-viewport bodies */
+			if (this.viewport && body.uuid === this.viewport.uuid) continue;
+
+			for (let j=0,len=this.interactions.length; j<len; j++) {
+				this.interactions[j].registerBody(body);
+			}
 		}
 	}
 
-	runInteractions() {
+	runInnteractions() {
+		// Iterate bodies (1)
+		for (let i=0,len=this.bodies.length; i<len; i++) {
+			const bodyA = this.bodies[i];
+
+			// Iterate bodies (2)
+			for (let x=0,len=this.bodies.length; x<len; x++) {
+				const bodyB = this.bodies[x];
+				if (bodyA.uuid === bodyB.uuid) continue;
+
+				bodyA.gravitateTo(bodyB);
+			}
+		}
+
+
+		for (let y=0, len=this.interactions.length; y<len; y++) {
+
+			this.interactions[y].run((bodyA, bodyB)=> {
+				const intersection = this.intersector.circleCircle(bodyA.worldTransform.boundingBox, bodyB.worldTransform.boundingBox);
+				if (intersection) {
+					this.collisionResolver.elastic(bodyA, bodyB, intersection);
+				}
+			});
+
+		}
+	}
+
+	getBodyById(bodyId) {
+		for (let i=0,len=this.bodies.length; i<len; i++) {
+			if (this.bodies[i].uuid === bodyId) {
+				return this.bodies[i];
+			}
+		}
+	}
+
+	runInteractionsB() {
 		for (let i=0, len=this.bodies.length; i<len; i++) {
 			const body1 = this.bodies[i];
 

@@ -56,6 +56,10 @@ class Body {
 		return this.worldTransform.height;
 	}
 
+	getBoundingBox() {
+		return this.worldTransform.boundingBox;
+	}
+
 	setPosition(vec) {
 		this.location = vec;
 	}
@@ -79,7 +83,7 @@ class Body {
 
 	transformToView(view) {
 		this.viewTransform = (this.uuid === view.attachedTo.uuid) ?
-		this.model.transformViewpoint(view, this.angle, this.scale) : this.worldTransform.transformView(view, true);
+		this.model.transformViewpoint(view, this.angle, this.scale) : this.worldTransform.transformView(view);
 	}
 
 	gravitateTo(target, G) {
