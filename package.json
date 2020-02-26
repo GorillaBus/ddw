@@ -1,6 +1,6 @@
 {
   "name": "dw",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "DDW is a 2D graphics + physics engine.",
   "main": "index.js",
   "directories": {
@@ -8,7 +8,7 @@
   },
   "scripts": {
     "install": "webpack",
-    "build": "webpack",
+    "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Eduardo Garcia Rajo",
