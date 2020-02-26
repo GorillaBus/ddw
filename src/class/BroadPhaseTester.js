@@ -30,25 +30,6 @@ class BroadPhaseTester {
 		this.cells = [];
 	}
 
-	run(fn) {
-		// Iterate cells
-		for (let c=0, len=this.cells.length; c<len; c++) {
-			const cell = this.cells[c];
-
-			// Iterate bodies (1)
-			for (let i=0,len=cell.bodies.length; i<len; i++) {
-				const bodyA = cell.bodies[i];
-
-				// Iterate bodies (2)
-				for (let x=0,len=cell.bodies.length; x<len; x++) {
-					const bodyB = cell.bodies[x];
-					if (bodyA.uuid === bodyB.uuid) continue;
-					fn(bodyA, bodyB);
-				}
-			}
-		}
-	}
-
 	registerBody(body) {
 		const boundingBox = body.getBoundingBox();
 

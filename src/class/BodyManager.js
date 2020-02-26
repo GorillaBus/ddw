@@ -5,8 +5,6 @@ class BodyManager {
 		this.bodies = settings.bodies || [];
 		this.viewport = null;
 		this.drawer = settings.drawer;
-		this.intersector = settings.intersector;
-		this.collisionResolver = settings.collisionResolver;
 		this.interactions = settings.interactions || [];
 	}
 
@@ -53,17 +51,7 @@ class BodyManager {
 			}
 		}
 
-
-		for (let y=0, len=this.interactions.length; y<len; y++) {
-
-			this.interactions[y].run((bodyA, bodyB)=> {
-				const intersection = this.intersector.circleCircle(bodyA.worldTransform.boundingBox, bodyB.worldTransform.boundingBox);
-				if (intersection) {
-					this.collisionResolver.elastic(bodyA, bodyB, intersection);
-				}
-			});
-
-		}
+		for (let y=0, len=this.interactions.length; y<len; y++) this.interactions[y].run();
 	}
 
 	getBodyById(bodyId) {
