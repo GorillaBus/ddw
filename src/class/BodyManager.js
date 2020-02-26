@@ -5,6 +5,7 @@ class BodyManager {
 		this.bodies = settings.bodies || [];
 		this.viewport = null;
 		this.drawer = settings.drawer;
+		this.intersector = settings.intersector;
 		this.interactions = settings.interactions || [];
 	}
 

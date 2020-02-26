@@ -13,6 +13,8 @@ const ScenePlayer = require("./src/class/ScenePlayer");
 const Models = require("./src/models");
 const ShapeGenerator = require("./src/class/ShapeGenerator");
 const BroadPhaseTester = require("./src/class/BroadPhaseTester");
+const CollisionInteraction = require("./src/class/CollisionInteraction");
+
 
 module.exports = {
 	Vector,
@@ -21,6 +23,7 @@ module.exports = {
 	Model,
 	Body,
 	BroadPhaseTester,
+	CollisionInteraction,
 	BodyManager,
 	Intersector,
 	CollisionResolver,
