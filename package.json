@@ -9,11 +9,13 @@
   "scripts": {
     "install": "webpack",
     "build": "webpack --mode production",
+    "build-doc": "jsdoc -c jsdoc.conf.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Eduardo Garcia Rajo",
   "license": "MIT",
   "devDependencies": {
+    "jsdoc": "^3.6.3",
     "webpack": "^4.41.4",
     "webpack-cli": "^3.3.10"
   }
