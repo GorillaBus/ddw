@@ -1,0 +1,23 @@
+force
+bounding box
+
+
+optimizer el loop de Drawer.drawPolygon()
+optimizar el loop en Model.loadShapes()
+optimizar el loop en Shape.getBounds()
+optimizar el loop en Shape.copy()
+reemplazar Model.transformViewpoint() por Model.transform(view, s, t) en la llamada
+podemos reemplazar Model.transformView() por Model.transform()?
+Can we apply transformations to models without instantiating a new model object?
+Viewport podria tener un modelo en src/models
+Viewport scale up/down estan explicados al reves
+
+Viewport deberia poderse escalar y rotar apesar de estar atachado? 
+Viewport puede tener su propio intersector?
+Should BodyManager handle drawing?
+Si Scene es responzable del espacio de dibujado, no deberia ocuparse éste tambien de orquestar
+el dibujado de los bodies y las chucherias?
+BodyManager está manejando el ViewPort y no deberia, ver Scene.setViewport()
+
+Enums: 
+  view_reference: 'viewport':'world'

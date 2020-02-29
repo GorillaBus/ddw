@@ -1,7 +1,18 @@
 const Shape = require('./Shape');
 
+/**
+ * A singleton class that provides a collection of methods to generate different complex shapes.
+ * @summary View file: {@link https://github.com/GorillaBus/ddw/blob/master/src/class/BodyManager.js https://github.com/GorillaBus/ddw/blob/master/src/class/Intersector.js}.
+ * @class
+ */
 class ShapeGenerator {
 
+	/**
+	* Creates a shape object for each polygon.
+	* @method
+	* @param {} xxx - xxx
+	* @returns {} xxx
+	*/
 	circle(settings) {
 		const divs = settings.divs || 32;
 		const fillColor = settings.fillColor || '#FFFFFF';
@@ -16,7 +27,6 @@ class ShapeGenerator {
 			};
 			points.push(point);
 		}
-
 		return new Shape({
 			fillColor,
 			fillColor,

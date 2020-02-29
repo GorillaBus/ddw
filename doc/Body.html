@@ -28,7 +28,7 @@
 
 <header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Body<span class="signature">()</span><span class="type-signature"></span></h2>
+        <h2><span class="attribs"><span class="type-signature"></span></span>Body<span class="signature">(settings)</span><span class="type-signature"></span></h2>
         
     
 </header>
@@ -41,16 +41,17 @@
     
 
     
-    <h4 class="name" id="Body"><span class="type-signature"></span>new Body<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="Body"><span class="type-signature"></span>new Body<span class="signature">(settings)</span><span class="type-signature"></span></h4>
     
 
+    
+    <p class="summary">View file: <a href="https://github.com/GorillaBus/ddw/blob/master/src/class/Body.js">https://github.com/GorillaBus/ddw/blob/master/src/class/Body.js</a>.</p>
     
 
 
 
 <div class="description">
-    Represents a physical body that can interact with forces and other objects
-<a href="https://github.com/GorillaBus/ddw/blob/master/src/class/Body.js">GitHub</a>.
+    Represents a basic physical entity in DDW. As a virtual physical object it has mass, a shape (described by a set of points), a position in the world and can be affected by forces. A body can iterate with other bodies in the world, for example, by collision, gravity pull, repealing, etc. In DDW the shape of an Body is represented by a Model object that can be transformed to model, world and view. It also contains animation functionality. A body has a position vector to define its location in the world, a velocity vector that describes the body's movement and an acceleration vector to which forces are applied to affect the body's velocity.<br/><br/>To facilitate different tasks like broad-phase collision detection a bounding box is always computed for each Body. This bounding box is accesible by the body's model object as well as the radius of its bounding circle.
 </div>
 
 
@@ -59,6 +60,471 @@
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>settings</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Json object with construction options
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>x</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Float</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">X axis position of the body's center in the world.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>y</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Float</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">Y axis position of the body's center in the world. 0 by default.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>scale</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Float</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">Scale factor. 1 by default.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>angle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Float</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">The body's orientation angle in radians. 0 by default.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>speed</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Float</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">Movement speed on the current direction. 0 by default.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>width</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Float</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">Float	The width of the entity. 0 by default.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>height</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Float</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">The height of the entity. 0 by default.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>radius</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Float</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    0
+                
+                </td>
+            
+
+            <td class="description last">The radius of the entity. 0 by default.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>visible</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last">Wether this entity is graphicable or not. True by default.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>modelData</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">A array of json objects defining the shapes that composes the body's model.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -94,7 +560,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Body.js.html">Body.js</a>, <a href="Body.js.html#line13">line 13</a>
+        <a href="Body.js.html">Body.js</a>, <a href="Body.js.html#line23">line 23</a>
     </li></ul></dd>
     
 
@@ -200,7 +666,7 @@
             <td class="type">
             
                 
-<span class="param-type">Vector</span>
+<span class="param-type"><a href="Vector.html">Vector</a></span>
 
 
             
@@ -251,7 +717,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Body.js.html">Body.js</a>, <a href="Body.js.html#line80">line 80</a>
+        <a href="Body.js.html">Body.js</a>, <a href="Body.js.html#line118">line 118</a>
     </li></ul></dd>
     
 
@@ -276,16 +742,6 @@
 
 
 
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    None
-</div>
-
-
-
-    
 
 
 
@@ -305,7 +761,7 @@
 
 
 <div class="description">
-    Applies the given force vector adding it directly to the body's acceleration vector
+    A variation of applyForce that will add to the body's acceleration without dividing by its mass, as a net force.
 </div>
 
 
@@ -347,7 +803,7 @@
             <td class="type">
             
                 
-<span class="param-type">Vector</span>
+<span class="param-type"><a href="Vector.html">Vector</a></span>
 
 
             
@@ -398,7 +854,144 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Body.js.html">Body.js</a>, <a href="Body.js.html#line92">line 92</a>
+        <a href="Body.js.html">Body.js</a>, <a href="Body.js.html#line128">line 128</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getBoundingBox"><span class="type-signature"></span>getBoundingBox<span class="signature">(force)</span><span class="type-signature"> &rarr; {<a href="Shape.html">Shape</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Returns body's bounding box, defined as the rectangular shape that bounds the total of the points that compose the body's model.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>force</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Vector.html">Vector</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A force to be applied to the body</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Body.js.html">Body.js</a>, <a href="Body.js.html#line100">line 100</a>
     </li></ul></dd>
     
 
@@ -427,12 +1020,1106 @@
 
         
 <div class="param-desc">
-    None
+    bounding box
 </div>
 
 
 
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Shape.html">Shape</a></span>
+
+
+    </dd>
+</dl>
+
     
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getHeight"><span class="type-signature"></span>getHeight<span class="signature">()</span><span class="type-signature"> &rarr; {Float}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Returns the body's height, defined as the maximum distance between each of the points that compose the body's model over the Y axis. This will be equal to the height of the body's bounding box.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Body.js.html">Body.js</a>, <a href="Body.js.html#line90">line 90</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    height
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Float</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getRadius"><span class="type-signature"></span>getRadius<span class="signature">()</span><span class="type-signature"> &rarr; {float}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Returns the body's radius, defined as it's largest prolongation along one of the two axis.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Body.js.html">Body.js</a>, <a href="Body.js.html#line72">line 72</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    - Radius
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">float</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="getWidth"><span class="type-signature"></span>getWidth<span class="signature">()</span><span class="type-signature"> &rarr; {Float}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Returns the body's width, defined as the maximum distance between each of the points that compose the body's model over the X axis. This will be equal to the width of the body's bounding box.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Body.js.html">Body.js</a>, <a href="Body.js.html#line81">line 81</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    with
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Float</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="gravitateTo"><span class="type-signature"></span>gravitateTo<span class="signature">(target, G<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {<a href="Vector.html">Vector</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Computes the attraction force from a given body with the formulat "F = G * M * (m / r2)". The magnitude will depend on both object's mass, distance and current speeds. This method will avoid applying any force if both bodies are intersecting.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>target</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Body.html">Body</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The target body to compute the gravitation force.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>G</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Float</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    1
+                
+                </td>
+            
+
+            <td class="description last">Gravity force factor.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Body.js.html">Body.js</a>, <a href="Body.js.html#line165">line 165</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A vector representing the gravity full force to the target body.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="Vector.html">Vector</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="resetVelocity"><span class="type-signature"></span>resetVelocity<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Resets the velocity vector to 0. Usually executed after every update to reset force accumulation.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Body.js.html">Body.js</a>, <a href="Body.js.html#line136">line 136</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="setPosition"><span class="type-signature"></span>setPosition<span class="signature">(position)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Sets the body's location vector to a given position
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>position</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Vector.html">Vector</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The target position vector</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Body.js.html">Body.js</a>, <a href="Body.js.html#line109">line 109</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="transformToView"><span class="type-signature"></span>transformToView<span class="signature">(reference)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Performs a view transformation on the body's world state from the view's reference. Usually used to display the camera's view of the world.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>reference</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Body.html">Body</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A view reference body object.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Body.js.html">Body.js</a>, <a href="Body.js.html#line153">line 153</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="transformToWorld"><span class="type-signature"></span>transformToWorld<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Performs a world transformation on the body's model. This method is executed on each time step to reflect the body's state in the world (position, velocity and scale).
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Body.js.html">Body.js</a>, <a href="Body.js.html#line144">line 144</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="update"><span class="type-signature"></span>update<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Updates the body's state in the world by adding acceleration to velocity and velocity to position vector. Acceleration is finally reseted.
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Body.js.html">Body.js</a>, <a href="Body.js.html#line61">line 61</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -454,13 +2141,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Body.html">Body</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Body.html">Body</a></li><li><a href="BodyManager.html">BodyManager</a></li><li><a href="BroadPhaseTester.html">BroadPhaseTester</a></li><li><a href="CollisionInteraction.html">CollisionInteraction</a></li><li><a href="Drawer.html">Drawer</a></li><li><a href="Intersector.html">Intersector</a></li><li><a href="Model.html">Model</a></li><li><a href="Scene.html">Scene</a></li><li><a href="ScenePlayer.html">ScenePlayer</a></li><li><a href="Shape.html">Shape</a></li><li><a href="ShapeGenerator.html">ShapeGenerator</a></li><li><a href="Utils.html">Utils</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Viewport.html">Viewport</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Feb 27 2020 23:28:39 GMT+0100 (hora estándar de Europa central)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sat Feb 29 2020 17:50:34 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>
