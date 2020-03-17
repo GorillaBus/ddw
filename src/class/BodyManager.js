@@ -6,7 +6,6 @@ class BodyManager {
  * @constructor
  * @param {Object} settings - Json object with construction options
  * @param {Array} [settings.bodies=[]] - An array of body object to be added on initialization.
- * @param {Viewport} [settings.viewport=null] - A viewport object, generally used as the camera.
  * @param {Drawer} [settings.drawer=0] - A drawer object, used to draw the bodie models on screen.
  * @param {Intersector} settings.intersector - An intersector object.
  * @param {Array} [settings.interactions=[]] - An array of interaction objects.
@@ -14,19 +13,10 @@ class BodyManager {
 	constructor(settings) {
 		this.debug = settings.debug || false;
 		this.bodies = settings.bodies || [];
-		this.viewport = null;
 		this.drawer = settings.drawer;
 		this.intersector = settings.intersector;
+		this.collisionResolver = settings.collisionResolver;
 		this.interactions = settings.interactions || [];
-	}
-
-/**
- * Sets the Viewport object to be used as a view reference or camera.
- * @method
- * @param {Viewport} viewport - A viewport object. 
- */
-	setViewport(viewport) {
-		this.viewport = viewport;
 	}
 
 /**
@@ -56,11 +46,10 @@ class BodyManager {
 		for (let i=0, len=this.bodies.length; i<len; i++) {
 			const body = this.bodies[i];
 			body.update();
-			body.transformToWorld();
-			if (this.viewport && body.uuid === this.viewport.uuid) continue;
-			for (let j=0,len=this.interactions.length; j<len; j++) {
-				this.interactions[j].registerBody(body);
-			}
+			// if (body.constructor.name === 'Viewport') continue;
+			// for (let j=0,len=this.interactions.length; j<len; j++) {
+			// 	this.interactions[j].registerBody(body);
+			// }
 		}
 	}
 
@@ -69,15 +58,28 @@ class BodyManager {
  * @method
  */
 	runInnteractions() {
+		// for (let i=0,len=this.bodies.length; i<len; i++) {
+		// 	const bodyA = this.bodies[i];
+		// 	for (let x=0,len=this.bodies.length; x<len; x++) {
+		// 		const bodyB = this.bodies[x];
+		// 		if (bodyA.uuid === bodyB.uuid) continue;
+		// 		bodyA.gravitateTo(bodyB);
+		// 	}
+		// }
+		//for (let y=0, len=this.interactions.length; y<len; y++) this.interactions[y].run();
+
 		for (let i=0,len=this.bodies.length; i<len; i++) {
 			const bodyA = this.bodies[i];
 			for (let x=0,len=this.bodies.length; x<len; x++) {
 				const bodyB = this.bodies[x];
-				if (bodyA.uuid === bodyB.uuid) continue;
-				bodyA.gravitateTo(bodyB);
+				if (bodyA.uuid === bodyB.uuid || bodyB.constructor.name === 'Viewport') continue;
+
+				const intersection = this.intersector.circleCircle(bodyA.worldTransform.boundingBox, bodyB.worldTransform.boundingBox);
+				if (intersection) {
+					this.collisionResolver.elastic(bodyA, bodyB, intersection);
+				}
 			}
 		}
-		for (let y=0, len=this.interactions.length; y<len; y++) this.interactions[y].run();
 	}
 
 /**
@@ -96,41 +98,19 @@ class BodyManager {
 	}
 
 /**
- * Draws the bodies based on the desired view type: from 'viewport' or 'world' reference. In the first case it will only draw the bodies that intersect with the Viewport, in the second it will draw all bodies.
+ * Draws all bodies in the view perspective of a given reference viewport.
  * @method
- * @param {String} viewType - Can be 'viewport' or null for 'world'.
+ * @param {Viewport} viewport - A viewport object.
  */
-	draw(view) {
-		view === 'viewport' ? this.drawViewportTransform() : this.drawWorldTransform();
-	}
-
-/**
- * Draws the world-transformed model of each body.
- * @method
- */
-	drawWorldTransform() {
-		for (let i=0, len=this.bodies.length; i<len; i++) {
-			const body = this.bodies[i];
-			this.drawer.draw(body.worldTransform.getShapes());
-			if (this.debug) {
-				this.drawer.drawPolygon(body.worldTransform.boundingBox);
-			}
-		}
-	}
-
-/**
- * Draws the viewport-transformed model of each body that is visible and intersects with the viewport.
- * @method
- */
-	drawViewportTransform() {
-		const viewportModel = this.viewport.worldTransform.transform(0, 1).boundingBox;
+	draw(viewport) {
+		const viewportModel = viewport.worldTransform.transform(0, 1).boundingBox;
 		for (let i=0, len=this.getLength(); i<len; i++) {
 			const body = this.bodies[i];
 			if (!body.visible) continue;
 			const bodyModel = body.worldTransform.boundingBox;
 			const intersects = this.intersector.circleInRectangle(bodyModel, viewportModel);
 			if (intersects) {
-				body.transformToView(this.viewport);
+				body.transformToView(viewport);
 				this.drawer.draw(body.viewTransform.getShapes());
 				if (this.debug) {
 					this.drawer.drawPolygon(body.viewTransform.boundingBox);

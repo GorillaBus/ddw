@@ -15,6 +15,21 @@ class BroadPhaseTester {
 	}
 
 	/**
+	* Retrieves a partitioning cell by it's id
+	* @method
+	* @param {String} id - A cell id composed by it's two positional components: "xx_yy".
+	* @returns {Object} A json object representing the new cell.
+	*/
+	getCell(cellId) {
+		for (let i = 0, len = this.cells.length; i < len; i++) {
+			if (this.cells[i].id === cellId) {
+				return this.cells[i];
+			}
+		}
+		return false;
+	}
+
+	/**
 	* Adds a new cell with the given id
 	* @method
 	* @param {String} id - A cell id composed by it's two positional components: "xx_yy".

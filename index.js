@@ -15,7 +15,6 @@ const ShapeGenerator = require("./src/class/ShapeGenerator");
 const BroadPhaseTester = require("./src/class/BroadPhaseTester");
 const CollisionInteraction = require("./src/class/CollisionInteraction");
 
-
 module.exports = {
 	Vector,
 	Utils,

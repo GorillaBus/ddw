@@ -13,6 +13,7 @@ class Model {
 	constructor(settings) {
 		this.debugColor = settings.debugColor || "#94ec5d";
 		this.shapes = this.loadShapes(settings.shapes);
+		this.scale = 1;
 		this.bounds = this.getBounds();
 		this.boundingBox = this.getBoundingBox();
 	}
@@ -187,28 +188,10 @@ class Model {
 	* @returns {Model} The resulting model after applying the transformation.
 	*/
 	transformView(view) {
-		const shapeData = this.shapes.map(shape => {
-			const location = view.getLocation();
-			const scale = view.getScale();
-			const angle = view.getAngle();
-			const transformedPoints = shape.points.map(point => {
-				const newPoint = point.copy();
-				newPoint.substractFrom(location);
-				newPoint.rotateBy(-angle);
-				newPoint.divideBy(scale === 0 ? 1 : scale);
-				return { x: newPoint.getX(), y: newPoint.getY() };
-			});
-			return {
-				points: transformedPoints,
-				visible: shape.visible,
-				fillColor: shape.fillColor,
-				strokeColor: shape.strokeColor
-			};
-		});
-		return new Model({
-			debugColor: this.debugColor,
-			shapes: shapeData
-		});
+		const r = -view.getAngle();
+		const s = view.getScale() / this.scale;
+		const t = view.getLocation().multiply(-1);
+		return this.transform(r, s, t);
 	}
 }
 

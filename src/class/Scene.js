@@ -8,7 +8,7 @@ class Scene {
 	* @param {Object} settings - Json object with construction options.
 	* @param {Int} [settings.width=800] - Scene width in pixels.
 	* @param {Int} [settings.height=600] - Scene height in pixels.
-	* @param {View} [settings.view='viewport'] - View mode: 'viewport' or 'world'.
+  * @param {Viewport} [settings.viewport=null] - A viewport object, generally used as the camera.
 	* @param {CanvasRenderingContext2D} settings.ctx - A canvas 2D rendering context.
 	* @param {BodyManager} settings.bodyManager - A body manager object.
 	*/
@@ -16,8 +16,8 @@ class Scene {
 		settings = settings || {};
 		this.width = settings.width || 800;
 		this.height = settings.height || 600;
-		this.view = settings.view || "viewport";
 		this.ctx = settings.ctx;
+		this.viewport = null;
 		this.bodyManager = settings.bodyManager;
 		this.debug = settings.debug || false;
 		this.init();
@@ -53,7 +53,7 @@ class Scene {
 	* @param {Viewport} viewport - A Viewport object.
 	*/
 	setViewport(viewport) {
-		this.bodyManager.setViewport(viewport);
+		this.viewport = viewport;
 	}
 
 	/**
@@ -68,7 +68,7 @@ class Scene {
 	* @method
 	*/
 	drawBodies() {
-		this.bodyManager.draw(this.view);
+		this.bodyManager.draw(this.viewport);
 	}
 
 	/**
@@ -86,6 +86,14 @@ class Scene {
 	*/
 	updateBodies() {
 		this.bodyManager.update();
+	}
+
+	/**
+	* Runs interactions pipeline throgh all the corresponding scene bodies
+	* @method
+	*/
+	interactBodies() {
+		this.bodyManager.runInnteractions();
 	}
 
 	/**

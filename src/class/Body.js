@@ -51,6 +51,8 @@ class Body {
 		// Model
 		this.model = new Model(settings.modelData);
 
+
+		// Do we need this ????
 		this.transformToWorld();
 	}
 
@@ -61,7 +63,8 @@ class Body {
 	update() {
 		this.velocity.addTo(this.acceleration);
 		this.location.addTo(this.velocity);
-		this.resetVelocity();
+		this.transformToWorld();
+		this.acceleration.multiplyBy(0);
 	}
 
 /**
@@ -146,13 +149,22 @@ class Body {
 	}
 
 /**
- * Performs a view transformation on the body's world state from the view's reference. Usually used to display the camera's view of the world.
+ * Performs a view transformation on the body's model (that has already been transformed to world). If the given reference is the viewport itself,Usually used to display the camera's view of the world.
  * @method
  * @param {Body} reference - A view reference body object.
  */
 	transformToView(reference) {
-		this.viewTransform = (this.uuid === view.attachedTo.uuid) ?
-		this.model.transformViewpoint(view, this.angle, this.scale) : this.worldTransform.transformView(view);
+		const isViewport = this.uuid === reference.attachedTo.uuid;
+
+		if (isViewport) {
+			//this.viewTransform = this.model.transformViewpoint(reference, this.angle, this.scale);
+
+		} else {
+
+			this.viewTransform = this.worldTransform.transformView(reference);
+		}
+
+
 	}
 
 /**
