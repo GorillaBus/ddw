@@ -1,54 +1,28 @@
 
 class Drawer {
 
-/**
- * Draws shape objects in a given canvas 2D rendering context.
- * @summary View file: {@link https://github.com/GorillaBus/ddw/blob/master/src/class/BodyManager.js https://github.com/GorillaBus/ddw/blob/master/src/class/Drawer.js}.
- * @constructor
- * @param {Object} settings - Json object with construction options.
- * @param {CanvasRenderingContext2D} settings.ctx - A canvas 2D rendering context.
- */
 	constructor(settings) {
 		this.ctx = settings.ctx;
 	}
 
-	/**
-	* Draws every shape in the given array.
-	* @method
-	* @param {Array} shapes - An array of shape objects.
-	*/
-	draw(shapes) {
-		shapes.forEach(shape => {
-			if (shape.visible) {
-				this.drawPolygon(shape);
-			}
-		});
-	}
-
-	/**
-	* Iterates through the points that define a shape (polygon) drawing lines.
-	* @method
-	* @param {Shape} shape - A shape object.
-	*/
-	drawPolygon(shape) {
-		const ptsLength = shape.points.length;
-
+	draw(model) {
+    const points = model.getPoints();
 		this.ctx.beginPath();
-		for (let i = 0; i<ptsLength; i++) {
-			const a = shape.points[i];
-			const b = i === ptsLength - 1 ? shape.points[0] : shape.points[i + 1];
+		for (let i = 0, len=points.length; i<len; i++) {
+			const a = points[i];
+			const b = i === len - 1 ? points[0] : points[i + 1];
 			if (i === 0) {
-				this.ctx.moveTo(a.getX(), a.getY());
+				this.ctx.moveTo(a[0], a[1]);
 			}
-			this.ctx.lineTo(b.getX(), b.getY());
+			this.ctx.lineTo(b[0], b[1]);
 		}
 		this.ctx.closePath();
-		if (shape.strokeColor) {
-			this.ctx.strokeStyle = shape.strokeColor;
+		if (model.strokeColor) {
+			this.ctx.strokeStyle = model.strokeColor;
 			this.ctx.stroke();
 		}
-		if (shape.fillColor) {
-			this.ctx.fillStyle = shape.fillColor;
+		if (model.fillColor) {
+			this.ctx.fillStyle = model.fillColor;
 			this.ctx.fill();
 		}
 	}
