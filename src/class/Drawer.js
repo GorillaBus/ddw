@@ -1,31 +1,27 @@
-
 class Drawer {
 
-	constructor(settings) {
-		this.ctx = settings.ctx;
-	}
-
-	draw(model) {
+	draw(model, ctx) {
     const points = model.getPoints();
-		this.ctx.beginPath();
+		ctx.beginPath();
 		for (let i = 0, len=points.length; i<len; i++) {
 			const a = points[i];
 			const b = i === len - 1 ? points[0] : points[i + 1];
 			if (i === 0) {
-				this.ctx.moveTo(a[0], a[1]);
+				ctx.moveTo(a[0], a[1]);
 			}
-			this.ctx.lineTo(b[0], b[1]);
+			ctx.lineTo(b[0], b[1]);
 		}
-		this.ctx.closePath();
+		ctx.closePath();
 		if (model.strokeColor) {
-			this.ctx.strokeStyle = model.strokeColor;
-			this.ctx.stroke();
+			ctx.strokeStyle = model.strokeColor;
+			ctx.stroke();
 		}
 		if (model.fillColor) {
-			this.ctx.fillStyle = model.fillColor;
-			this.ctx.fill();
+			ctx.fillStyle = model.fillColor;
+			ctx.fill();
 		}
 	}
+
 }
 
 module.exports = Drawer;
