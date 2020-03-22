@@ -2,7 +2,7 @@ class Scene {
 
 	constructor(settings) {
 		settings = settings || {};
-    this.models = settings.models || [];
+    this.bodies = settings.bodies || [];
 		this.width = settings.width || 800;
 		this.height = settings.height || 600;
     this.drawer = settings.drawer;
@@ -11,7 +11,6 @@ class Scene {
 	}
 
 	init() {
-		// Set boundries
 		this.boundries = [{
 			x: -this.width / 2,
 			y: -this.height / 2
@@ -30,12 +29,20 @@ class Scene {
 	}
 
 	run() {
+    this.ctx.clearRect(this.boundries[0].x, this.boundries[0].y, this.width, this.height);
+    this.update();
     this.draw();
   }
 
+  update() {
+    for (let i=0, len=this.bodies.length; i<len; i++) {
+      this.bodies[i].update();
+    }
+	}
+
 	draw() {
-    for (let i=0, len=this.models.length; i<len; i++) {
-      this.drawer.draw(this.models[i], this.ctx);
+    for (let i=0, len=this.bodies.length; i<len; i++) {
+      this.drawer.drawModel(this.bodies[i].world, this.ctx);
     }
 	}
 

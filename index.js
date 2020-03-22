@@ -1,10 +1,14 @@
 const Model = require("./src/class/Model");
-const Drawer = require("./src/class/Drawer");
+const ModelDrawer = require("./src/class/ModelDrawer");
 const Scene = require("./src/class/Scene");
 const ScenePlayer = require("./src/class/ScenePlayer");
+const Body = require("./src/class/Body");
+const Vector = require("./src/class/Vector");
 module.exports = {
 	Model,
-	Drawer,
+	ModelDrawer,
 	Scene,
-	ScenePlayer
+	Body,
+	ScenePlayer,
+	Vector
 }

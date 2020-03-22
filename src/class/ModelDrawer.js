@@ -1,6 +1,6 @@
-class Drawer {
+class ModelDrawer {
 
-	draw(model, ctx) {
+	drawModel(model, ctx) {
     const points = model.getPoints();
 		ctx.beginPath();
 		for (let i = 0, len=points.length; i<len; i++) {
@@ -24,4 +24,4 @@ class Drawer {
 
 }
 
-module.exports = Drawer;
+module.exports = ModelDrawer;
