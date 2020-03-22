@@ -5,6 +5,7 @@ class Scene {
     this.bodies = settings.bodies || [];
 		this.width = settings.width || 800;
 		this.height = settings.height || 600;
+    this.viewport = settings.viewport;
     this.drawer = settings.drawer;
 		this.ctx = settings.ctx;
 		this.init();
@@ -35,6 +36,7 @@ class Scene {
   }
 
   update() {
+    this.viewport.update();
     for (let i=0, len=this.bodies.length; i<len; i++) {
       this.bodies[i].update();
     }
@@ -42,7 +44,10 @@ class Scene {
 
 	draw() {
     for (let i=0, len=this.bodies.length; i<len; i++) {
-      this.drawer.drawModel(this.bodies[i].world, this.ctx);
+      const body = this.bodies[i];
+      if (this.viewport.intersects(body)) {
+        this.drawer.drawModel(body.world, this.ctx);
+      }
     }
 	}
 
