@@ -8,6 +8,7 @@ class Scene {
     this.viewport = settings.viewport;
     this.drawer = settings.drawer;
 		this.ctx = settings.ctx;
+    this.collisions = settings.collisions;
 		this.init();
 	}
 
@@ -32,13 +33,17 @@ class Scene {
 	run() {
     this.ctx.clearRect(this.boundries[0].x, this.boundries[0].y, this.width, this.height);
     this.update();
+    this.collisions.run();
     this.draw();
   }
 
   update() {
     this.viewport.update();
+    this.collisions.resetGrid();
     for (let i=0, len=this.bodies.length; i<len; i++) {
-      this.bodies[i].update();
+      const body = this.bodies[i];
+      body.update();
+      this.collisions.registerBody(body);
     }
 	}
 
