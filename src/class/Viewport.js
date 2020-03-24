@@ -16,7 +16,6 @@ class Viewport extends Body {
           ]
         })
 		});
-
     this.width = settings.width || 800;
     this.height = settings.height || 600;
 		this.attachedTo = settings.attachedTo || false;
@@ -24,7 +23,17 @@ class Viewport extends Body {
 	}
 
   intersects(body) {
-    return this.intersector.rectangleInRectangle(body.world, this.world);
+    return this.intersector.rectangleRectangle(body.world, this.world);
+  }
+
+  getRelativeView(body) {
+		const t = [
+			this.location.getX() * -1,
+			this.location.getY() * -1
+		];
+		const r = this.getAngle() * -1;
+		const s = body.getScale() / this.getScale();
+    return body.world.transformInversion(t, s, r);
   }
 
 	rotateLeft(magnitude) {
