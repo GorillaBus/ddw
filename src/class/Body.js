@@ -21,6 +21,18 @@ class Body {
     this.world = null;
 	}
 
+  getAngle() {
+    return this.angle;
+  }
+
+  getScale() {
+    return this.scale;
+  }
+
+  getLocation() {
+    return this.location;
+  }
+
 	update() {
     // Update Position
 		this.velocity.addTo(this.acceleration);
@@ -31,8 +43,12 @@ class Body {
     this.angle += this.angleVelocity;
     this.angleAcceleration = 0;
     // World transformation
-    this.world = this.model.transform(this.angle, this.scale, [this.location.getX(), this.location.getY()]);
+    this.world = this.getWorldTransform();
 	}
+
+  getWorldTransform() {
+    return this.model.transform(this.angle, this.scale, [this.location.getX(), this.location.getY()]);
+  }
 
 	setPosition(position) {
 		this.location = position;
