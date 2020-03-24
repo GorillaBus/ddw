@@ -55,6 +55,22 @@ class Model {
     });
 	}
 
+	transformInversion(t, s, r) {
+    const transformed = [];
+		for (let j=0,len=this.points.length; j<len; j++) {
+      let p = this.points[j];
+		  p = this.translatePoint(p, t);
+			p = this.scalePoint(p, s);
+			p = this.rotatePoint(p, r);
+			transformed.push(p);
+		}
+    return new Model({
+      points: transformed,
+      strokeColor: this.strokeColor,
+      fillColor: this.fillColor
+    });
+	}
+
   rotatePoint(point, angle) {
     return [
       point[0] * Math.cos(angle) - point[1] * Math.sin(angle),
