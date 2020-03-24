@@ -18,7 +18,7 @@ class Body {
 		this.scale = settings.scale || 1;
 		this.uuid = Utils.uniqueID();
     this.model = settings.model;
-    this.world = null;
+    this.world = this.getWorldTransform();
 	}
 
   getAngle() {
@@ -32,6 +32,15 @@ class Body {
   getLocation() {
     return this.location;
   }
+
+	getBoundingRect() {
+		return [
+			[this.world.bounds.xMin, this.world.bounds.yMin],
+			[this.world.bounds.xMin, this.world.bounds.yMax],
+			[this.world.bounds.xMax, this.world.bounds.yMax],
+			[this.world.bounds.xMax, this.world.bounds.yMin]
+		];
+	}
 
 	update() {
     // Update Position
