@@ -46,7 +46,8 @@ class Scene {
     for (let i=0, len=this.bodies.length; i<len; i++) {
       const body = this.bodies[i];
       if (this.viewport.intersects(body)) {
-        this.drawer.drawModel(body.world, this.ctx);
+        const perspectiveView = this.viewport.getRelativeView(body);
+        this.drawer.drawModel(perspectiveView, this.ctx);
       }
     }
 	}
