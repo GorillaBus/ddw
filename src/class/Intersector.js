@@ -40,4 +40,4 @@ class Intersector {
 
 }
 
-module.exports = Intersector;
+module.exports = new Intersector();
