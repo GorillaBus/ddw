@@ -22,6 +22,21 @@ class ModelDrawer {
 		}
 	}
 
+	drawBoundingRectangle(model, ctx) {
+		ctx.beginPath();
+    ctx.strokeStyle = "yellow";
+    ctx.strokeRect(model.bounds.xMin, model.bounds.yMin, model.width, model.height);
+    ctx.closePath();
+	}
+
+	drawBoundingCircle(model, ctx) {
+		ctx.beginPath();
+    ctx.strokeStyle = "yellow";
+    ctx.arc(model.center[0], model.center[1], model.radius, 0, 2 * Math.PI);
+		ctx.stroke();
+		ctx.closePath();
+	}
+
 }
 
 module.exports = ModelDrawer;
