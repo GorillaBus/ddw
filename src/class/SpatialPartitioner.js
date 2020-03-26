@@ -19,12 +19,13 @@ class SpatialPartitioner {
 		return this.cells;
 	}
 
-	addCell(cellId) {
-		this.cells.push({
-			id: cellId,
+	addCell(cellData) {
+    const cell = {
+			...cellData,
 			bodies: []
-		});
-		return this.cells[this.cells.length-1];
+		};
+		this.cells.push(cell);
+		return cell;
 	}
 
 	resetGrid() {
@@ -41,12 +42,12 @@ class SpatialPartitioner {
 			const point = boundingRect[i];
 
 			// Get point's cell position on the grid
-			const cellId = this.pointPosition(point);
+			const cellData = this.pointPosition(point);
 
 			// Create new cell if required
-			let cell = this.getCell(cellId);
+			let cell = this.getCell(cellData.id);
 			if (!cell) {
-				cell = this.addCell(cellId);
+				cell = this.addCell(cellData);
 			}
 
 			// Add body to cell's collection
@@ -73,7 +74,12 @@ class SpatialPartitioner {
 	pointPosition(point) {
 		const xComponent = Math.floor(point[0] / this.cellSize);
 		const yComponent = Math.floor(point[1] / this.cellSize);
-		return [xComponent, yComponent].join("_");
+
+    return {
+      x: xComponent,
+      y: yComponent,
+      id: [xComponent, yComponent].join("_")
+    }
 	}
 
 }
