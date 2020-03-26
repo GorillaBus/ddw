@@ -38,11 +38,22 @@ class SpatialPartitioner {
 		const boundingRect = body.getBoundingRect();
 
 		// Find grid positions for each point
+    const currentCells = [];
 		for (let i=0,len=boundingRect.length; i<len; i++) {
 			const point = boundingRect[i];
 
 			// Get point's cell position on the grid
 			const cellData = this.pointPosition(point);
+
+      // Find if the cell has already been registered
+      let found = false;
+      for (let e=0,len=currentCells.length; e<len; e++) {
+        if (currentCells[e] === cellData.id) {
+          found = true;
+          break;
+        }
+      }
+      if (found) continue;
 
 			// Create new cell if required
 			let cell = this.getCell(cellData.id);
@@ -50,24 +61,9 @@ class SpatialPartitioner {
 				cell = this.addCell(cellData);
 			}
 
-			// Add body to cell's collection
-			let bodiesLen = cell.bodies.length;
-			if (bodiesLen === 0) {
-				cell.bodies.push(body);
-				continue;
-			}
-
-			let bodyExistsInCollection = false;
-			for (let y=0; y<bodiesLen; y++) {
-				if (cell.bodies[y].uuid === body.uuid) {
-					bodyExistsInCollection = true;
-					break;
-				}
-			}
-
-			if (!bodyExistsInCollection) {
-				cell.bodies.push(body);
-			}
+      // Add body in cell's collection
+			cell.bodies.push(body);
+      currentCells.push(cellData.id);
 		}
 	}
 
