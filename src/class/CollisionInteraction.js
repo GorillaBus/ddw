@@ -4,6 +4,7 @@ class CollisionInteraction extends LocalInteraction {
 
   constructor(settings) {
     super(settings);
+    this.id = "collisions";
     this.intersector = settings.intersector;
     this.resolver = settings.resolver;
 
