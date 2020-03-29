@@ -12,6 +12,8 @@ const LocalInteraction = require("./src/class/LocalInteraction");
 const CollisionInteraction = require("./src/class/CollisionInteraction");
 const CollisionResolver = require("./src/class/CollisionResolver");
 const PolygonGenerator = require("./src/class/PolygonGenerator");
+const GlobalInteraction = require("./src/class/GlobalInteraction");
+const GravityInteraction = require("./src/class/GravityInteraction");
 
 module.exports = {
 	Utils,
@@ -27,5 +29,7 @@ module.exports = {
 	LocalInteraction,
 	CollisionInteraction,
 	CollisionResolver,
-	PolygonGenerator
+	PolygonGenerator,
+	GlobalInteraction,
+	GravityInteraction
 }
