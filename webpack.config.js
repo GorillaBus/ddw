@@ -1,6 +1,6 @@
 module.exports = {
 	entry: './index.js',
-	mode: 'production',
+	mode: 'development',
 	devtool: "source-map",
 	output: {
 		path: __dirname + '/dist',
