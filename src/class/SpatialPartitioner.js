@@ -3,18 +3,18 @@ class SpatialPartitioner {
 	constructor(settings) {
 		settings = settings || {};
 		this.cellSize = settings.cellSize || 128;
+    this.neighborRange = settings.neighborRange || 1;
 		this.cells = [];
+    this.cellIndex = {};
+		this.debug = settings.debug || false;
 	}
 
   run() { }
 
 	getCell(cellId) {
-		for (let i=0,len=this.cells.length; i<len; i++) {
-			if (this.cells[i].id === cellId) {
-				return this.cells[i];
-			}
-		}
-		return false;
+		if (this.cellIndex[cellId]) {
+      return this.cellIndex[cellId];
+    }
 	}
 
 	getCells() {
@@ -23,17 +23,8 @@ class SpatialPartitioner {
 
   getNeighborCells(cell) {
     const neighborCells = [];
-    const neighborIds = [
-      [cell.x - 1, cell.y - 1].join("_"),
-      [cell.x, cell.y - 1].join("_"),
-      [cell.x + 1, cell.y - 1].join("_"),
-      [cell.x + 1, cell.y].join("_"),
-      [cell.x + 1, cell.y + 1].join("_"),
-      [cell.x, cell.y + 1].join("_"),
-      [cell.x - 1, cell.y + 1].join("_"),
-      [cell.x - 1, cell.y].join("_")
-    ];
-    for (let i=0; i<8; i++) {
+    const neighborIds = this.getNeighborCellIds(cell.x, cell.y);
+    for (let i=0,len=neighborIds.length; i<len; i++) {
       const id = neighborIds[i];
       const neighbor = this.getCell(id);
       if (neighbor) {
@@ -43,17 +34,32 @@ class SpatialPartitioner {
     return neighborCells;
   }
 
+  getNeighborCellIds(x, y) {
+    return [
+      [x - 1, y - 1].join("_"),
+      [x, y - 1].join("_"),
+      [x + 1, y - 1].join("_"),
+      [x + 1, y].join("_"),
+      [x + 1, y + 1].join("_"),
+      [x, y + 1].join("_"),
+      [x - 1, y + 1].join("_"),
+      [x - 1, y].join("_")
+    ];
+  }
+
 	addCell(cellData) {
     const cell = {
 			...cellData,
 			bodies: []
 		};
 		this.cells.push(cell);
+    this.cellIndex[cellData.id] = cell;
 		return cell;
 	}
 
 	resetGrid() {
 		this.cells = [];
+    this.cellIndex = {};
 	}
 
   registerBody(body, center) {
