@@ -2,7 +2,7 @@ class Model {
 
 	constructor(settings) {
     this.points = settings.points || [];
-		this.strokeColor = settings.strokeColor || "#94ec5d";
+		this.strokeColor = settings.strokeColor || null;
     this.fillColor = settings.fillColor || null;
 		this.bounds = this.getBounds();
 		this.center = this.getCenter();
