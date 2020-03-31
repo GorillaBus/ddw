@@ -3,36 +3,40 @@ class ScenePlayer {
 	constructor(settings) {
 		settings = settings || {};
 		this.scene = settings.scene;
-		this.fps = 0;
-		this.maxFPS = settings.maxFPS || 60;
-		this.requestId = null;
+		this.fps = settings.fps || 60;
 		this.playing = false;
-		this.lastTime = 0;
-		this.interval = 1000 / this.maxFPS;
+		this.requestId = null;
+		this.then = 0;
+		this.startTime = 0;
+		this.fpsInterval = 1000 / this.fps;
+		this.frameCount = 0;
+		this.framerate = 0;
 		this.forward = this.forward.bind(this);
-		this.scene.playerFps = this.fps;
 	}
 
 	getFps() {
-		return this.fps;
+		return this.framerate;
 	}
 
 	play() {
 		this.playing = true;
-		this.lastTime = 0;
+		this.reset();
 		this.forward();
 	}
 
-	forward(timestamp) {
-		const now = performance.now();
-		const delta = now - this.lastTime;
-		if (delta > this.interval) {
-			this.lastTime = now - (delta % this.interval);
-			this.scene.run(now, delta, this.lastTime);
-		}
-		this.fps = 1 / (delta / 1000);
-		this.scene.playerFps = this.fps;
+	forward(newtime) {
 		this.requestId = window.requestAnimationFrame(this.forward);
+    const elapsed = newtime - this.then;
+    if (elapsed > this.fpsInterval) {
+        this.then = newtime - (elapsed % this.fpsInterval);
+				// Draw scene
+				this.scene.run();
+				// Calculate framerate
+        const sinceStart = newtime - this.startTime;
+        this.framerate = Math.round(1000 / (sinceStart / ++this.frameCount) * 100) / 100;
+				// Pass framerate to scene
+				this.scene.playerFps = this.framerate;
+		}
 	}
 
 	stop() {
@@ -40,6 +44,12 @@ class ScenePlayer {
 		window.cancelAnimationFrame(this.requestId);
 		this.playing = false;
 		this.requestId = null;
+	}
+
+	reset() {
+		this.then = performance.now();
+    this.startTime = this.then;
+		this.frameCount = 0;
 	}
 
 }
