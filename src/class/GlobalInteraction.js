@@ -1,21 +1,14 @@
-const SpatialPartitioner = require("./SpatialPartitioner");
-
-class GloalInteraction extends SpatialPartitioner {
+class GloalInteraction {
 
   run() { }
 
-  prepare() { console.log("Global") }
-
-  resolve(cb) {
-    for (let i=0,len=this.cells.length; i<len; i++) {
-      const cell = this.cells[i];
-
-      for (let x=0,len=cell.bodies.length; x<len; x++) {
-        const body = cell.bodies[x];
-
-        for (let j=0,len=this.cells.length; j<len; j++) {
-          cb(body, this.cells[j]);
-        }
+  resolve(bodies, cb) {
+    for (let i=0, len=bodies.length; i<len; i++) {
+      const bodyA = bodies[i];
+      for (let j=0, len=bodies.length; j<len; j++) {
+        const bodyB = bodies[j];
+        if (bodyA.uuid === bodyB.uuid) continue;
+        cb(bodyA, bodyB);
       }
     }
   }

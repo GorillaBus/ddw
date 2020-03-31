@@ -10,8 +10,10 @@ class Scene {
     this.viewport = settings.viewport;
     this.drawer = settings.drawer;
 		this.ctx = settings.ctx;
-    this.collisions = settings.collisions;
-    this.gravity = settings.gravity;
+		this.spatialInteractions = settings.spatialInteractions || [];
+		this.globalInteractions = settings.globalInteractions || [];
+    this.playerFps = 0;
+    this.debug = settings.debug || false;
 		this.init();
 	}
 
@@ -37,29 +39,21 @@ class Scene {
     this.ctx.clearRect(this.boundries[0].x, this.boundries[0].y, this.width, this.height);
 
     this.update();
+    this.runSpatialInteractions();
+		this.runGlobalInteractions();
 
-    this.collisions.run();
-
-    this.gravity.run();
-
+		if (this.debug) this.debugDraw();
     this.draw();
   }
 
   update() {
     this.viewport.update();
-
-    this.collisions.resetGrid();
-    this.gravity.resetGrid();
-
+		this.resetSpatialInteractions();
     for (let i=0, len=this.bodies.length; i<len; i++) {
       const body = this.bodies[i];
       body.update();
-
-      this.collisions.registerBody(body);
-      this.gravity.registerBody(body);
+      this.spatialRegister(body);
     }
-
-    this.gravity.prepare();
 	}
 
 	draw() {
@@ -70,10 +64,47 @@ class Scene {
         this.drawer.drawModel(perspectiveView, this.ctx);
       }
     }
+	}
 
-    const cells = this.collisions.getCells();
-    const cellSize = this.collisions.cellSize;
+	debugDraw() {
+    // Show FPS
+    this.printText("FPS: "+ this.playerFps);
+    // Display Spatial Partitioning grids
+		this.spatialInteractions.forEach(spi => {
+			if (spi.debug) this.drawSpatialGrid(spi);
+		});
+  }
+
+	runGlobalInteractions() {
+		for (let i=0,len=this.globalInteractions.length; i<len; i++) {
+			this.globalInteractions[i].run(this.bodies);
+		}
+	}
+
+	runSpatialInteractions() {
+		for (let i=0,len=this.spatialInteractions.length; i<len; i++) {
+			this.spatialInteractions[i].run();
+		}
+	}
+
+	resetSpatialInteractions() {
+		for (let i=0,len=this.spatialInteractions.length; i<len; i++) {
+			this.spatialInteractions[i].resetGrid();
+		}
+	}
+
+	spatialRegister(body) {
+		for (let i=0,len=this.spatialInteractions.length; i<len; i++) {
+			this.spatialInteractions[i].registerBody(body);
+		}
+	}
+
+	drawSpatialGrid(spi) {
+		const cells = spi.getCells();
+    const cellSize = spi.cellSize;
+
     cells.forEach(c => {
+			const neighborRange = cellSize * spi.neighborRange;
       const cellModel = new Model({
         points: [
           [c.x * cellSize, c.y * cellSize],
@@ -81,57 +112,32 @@ class Scene {
           [c.x * cellSize + cellSize, c.y * cellSize + cellSize],
           [c.x * cellSize, c.y * cellSize + cellSize],
         ],
-        fillColor: "rgba(0, 255, 0, 0.3)"
+        strokeColor: "rgba(0, 255, 0, 0.6)"
       });
-      // const t = this.viewport.getTransformProps();
-      const perspectiveView = this.viewport.getRelativeView({ getScale: () => 1, world: cellModel });
-      this.drawer.drawModel(perspectiveView, this.ctx);
-
-
-
-      const t = [
-  			this.viewport.location.getX() * -1,
-  			this.viewport.location.getY() * -1
-  		];
-  		const r = this.viewport.getAngle() * -1;
-  		const s = 1 / this.viewport.getScale();
-
-      function rotatePoint(point, angle) {
-        return [
-          point[0] * Math.cos(angle) - point[1] * Math.sin(angle),
-          point[0] * Math.sin(angle) + point[1] * Math.cos(angle)
-        ];
-      }
-
-      function scalePoint(point, scale) {
-        return [
-          point[0] * scale,
-          point[1] * scale
-        ]
-      }
-
-      function translatePoint(point, position) {
-        return [
-          point[0] + position[0],
-          point[1] + position[1]
-        ]
-      }
-
-      // let p2 = [c.massCentroid.getX(), c.massCentroid.getY()];
-      // p2 = translatePoint(p2, t);
-      // p2 = scalePoint(p2, s);
-      // p2 = rotatePoint(p2, r);
-      //
-      //
-      // this.ctx.beginPath();
-      // this.ctx.fillStyle = "rgba(0, 0, 255, 0.5)";
-      // this.ctx.arc(p2[0], p2[1], 5, 0, 2 * Math.PI);
-      // this.ctx.fill();
-      // this.ctx.closePath();
+			const neighborhoodModel = new Model({
+        points: [
+          [c.x * cellSize - neighborRange, c.y * cellSize - neighborRange],
+          [c.x * cellSize + cellSize + neighborRange, c.y * cellSize - neighborRange],
+          [c.x * cellSize + cellSize + neighborRange, c.y * cellSize + cellSize + neighborRange],
+          [c.x * cellSize - neighborRange, c.y * cellSize + cellSize + neighborRange]
+        ],
+        strokeColor: "rgba(55, 20, 0, 0.6)"
+      });
+      const v1 = this.viewport.getRelativeView({ getScale: () => 1, world: cellModel });
+			const v2 = this.viewport.getRelativeView({ getScale: () => 1, world: neighborhoodModel });
+			this.drawer.drawModel(v1, this.ctx);
+			this.drawer.drawModel(v2, this.ctx);
     });
 
-
 	}
+
+  printText(text, x, y) {
+    x = x || this.boundries[0].x;
+    y = y || this.boundries[0].y + 20;
+    this.ctx.font = "16px Arial";
+    this.ctx.fillStyle = "red";
+    this.ctx.fillText(text, x, y);
+  }
 
 }
 
