@@ -99,9 +99,7 @@ class Body {
 	gravitateToCell(target) {
 		const diff = target.massCentroid.substract(this.location);
 		const distance = diff.getLength();
-
 		if (distance < this.getRadius() * 2) return;
-
 		const force = this.mass * target.mass / (distance * distance);
 		diff.normalize();
 		diff.multiplyBy(force);
