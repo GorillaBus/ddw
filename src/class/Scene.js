@@ -64,11 +64,12 @@ class Scene {
         this.drawer.drawModel(perspectiveView, this.ctx);
       }
     }
+
+		// Framerate
+    this.printText("FPS: "+ this.playerFps);
 	}
 
 	debugDraw() {
-    // Show FPS
-    this.printText("FPS: "+ this.playerFps);
     // Display Spatial Partitioning grids
 		this.spatialInteractions.forEach(spi => {
 			if (spi.debug) this.drawSpatialGrid(spi);
