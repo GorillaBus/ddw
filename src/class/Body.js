@@ -81,6 +81,7 @@ class Body {
 	}
 
 	gravitateTo(target, gravityFactor) {
+		const G = 9.8;
 		const diff = target.location.substract(this.location);
 		const distance = diff.getLength();
 		const minDistance = target.getRadius() + this.getRadius();
@@ -89,11 +90,11 @@ class Body {
 			return;
 		}
 
-		const force = this.mass * target.mass / (distance * distance);
+		const force = G * (this.mass * target.mass / (distance * distance));
 		diff.normalize();
 		diff.multiplyBy(force);
-		this.velocity.addTo(diff);
-		return force;
+
+		this.applyForce(diff);
 	}
 
 	gravitateToCell(target) {
