@@ -7,6 +7,51 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [0.1.0] - 2020-03-01
+
+## Changed
+
+- General refactor and prunning
+- Redefined the general pipeline
+- Trimmed unused functionality from Utils
+- Model now uses arrays of points instead of Vector objects
+- Model don't use Shape objects anymore
+- Scene mow handles bodies and interactions
+- Refactored interactions system and handling
+- SpatialPartitioner: optimized cell search
+- SpatialPartitioner: now registers only center points and uses neighbor cells
+- ScenePlayer: efficient fps throttle and computation
+- Model is now resposible for point transformations
+- Viewport is now responsible for View transformations and body-viewport intersection detect
+- Viewport does now creates its own model
+- Gravity force formula: added G multiplier
+- More efficient intersection testing
+
+## Added
+
+- Framerate display
+- Debug draw method in Scene
+- Drawing of SpatalPartitioner cells (debug)
+- ModelDrawer class
+- GlobalInteraction: handles the standard N*N complexity interactions
+- SpatialInteraction class: interactions with local and neighbors only
+- More organized transformations code for View/Camera
+- SpatialPartitioner class
+
+## Removed
+
+- Removed many old classes that are not being used yet (Ship, Boid, Console, etc)
+- Removed Drawer, BodieManager, BroadPhaseTester, Shape and other classes due to refactor
+- Removed coupled transformation code from Model class
+- Model preset folder
+
+## Fixed
+
+- Gravity bug: gravity force was not being divided by the body's mass
+- Collision detection errors to SpatialPartitioning bugs
+- Corrected Viewport transformation
+
+
 ## [0.0.5] - 2020-02-26
 
 ### Added
