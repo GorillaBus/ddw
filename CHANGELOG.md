@@ -7,6 +7,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+
+## [0.1.0] - 2020-03-02
+
+## Changed
+
+- Viewport scale (aka zoom) now adds/removes a ratio of the current scale
+
 ## [0.1.0] - 2020-03-01
 
 ## Changed
