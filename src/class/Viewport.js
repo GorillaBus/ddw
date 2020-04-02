@@ -47,13 +47,15 @@ class Viewport extends Body {
 	}
 
 	scaleUp(factor) {
-		factor = factor || 0.01;
-		this.scale -= factor;
+    factor = factor || 0.1;
+    this.scale += this.scale * factor;
+    this.scale += this.scale * factor;
 	}
 
 	scaleDown(factor) {
-		factor = factor || 0.01;
-		this.scale += factor;
+		factor = factor || 0.1;
+    this.scale -= this.scale * factor;
+    this.scale -= this.scale * factor;
 	}
 
 	move(x, y) {
