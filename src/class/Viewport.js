@@ -59,8 +59,8 @@ class Viewport extends Body {
 	}
 
 	move(x, y) {
-		this.location.setX(this.location.getX() + x);
-		this.location.setY(this.location.getY() + y);
+		this.location.setX(this.location.getX() + x * this.scale);
+		this.location.setY(this.location.getY() + y * this.scale);
 	}
 
 }
