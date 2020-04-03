@@ -8,11 +8,13 @@ class Body {
 		settings.x = settings.x || 0;
 		settings.y = settings.y || 0;
     settings.speed = settings.speed || 0;
+		settings.heading = settings.heading || 0;
+
     this.angleAcceleration = 0;
     this.angleVelocity = settings.angleVelocity || 0;
 		this.angle = settings.angle || 0;
 		this.acceleration = new Vector({ x: 0, y: 0 });
-		this.velocity = new Vector({ length: settings.speed, angle: this.angle });
+		this.velocity = new Vector({ length: settings.speed, angle: settings.heading });
 		this.location = new Vector({ x: settings.x, y: settings.y });
 		this.mass = settings.mass || 1;
 		this.scale = settings.scale || 1;
@@ -28,6 +30,22 @@ class Body {
   getScale() {
     return this.scale;
   }
+
+	getHeading() {
+		return this.velocity.getAngle();
+	}
+
+	setHeading(angle) {
+		this.velocity.setAngle(angle);
+	}
+
+	getSpeed() {
+		return this.velocity.getLength();
+	}
+
+	setSpeed(speed) {
+		this.velocity.setLength(speed);
+	}
 
   getLocation() {
     return this.location;
