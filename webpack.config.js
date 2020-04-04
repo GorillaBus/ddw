@@ -1,9 +1,10 @@
 module.exports = {
 	entry: './index.js',
-	mode: 'development',
+	mode: 'production', //'development',
 	devtool: "source-map",
 	output: {
 		path: __dirname + '/dist',
-		filename: 'ddw.js'
+		filename: 'ddw.js',
+		library: 'ddw'
 	}
 }
