@@ -115,6 +115,10 @@ class Body {
 		this.applyForce(diff);
 	}
 
+	distanceTo(target) {
+		return target.location.substract(this.location).getLength() - this.getRadius() - target.getRadius();
+	}
+
 	gravitateToCell(target) {
 		const diff = target.massCentroid.substract(this.location);
 		const distance = diff.getLength();
