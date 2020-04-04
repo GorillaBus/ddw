@@ -25,6 +25,10 @@ class Utils {
     return min + Math.random() * (max - min);
   }
 
+  mapRange(value, low1, high1, low2, high2) {
+    return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+  }
+
   /**
   * Generates a random angle between -pi and +pi.
   * @method
