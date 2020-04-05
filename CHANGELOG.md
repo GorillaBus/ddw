@@ -8,11 +8,26 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 
-## [0.1.0] - 2020-03-02
+## [0.1.2] - 2020-03-05
+
+## Changed
+
+- Webpack now exports DDW as a library
+- Viewport movement is now scaled
+
+## Added
+
+- Body class now hadles heading and speed concepts
+- Added distnaceTo() method to Body class
+- Added mapRange() method to Utils class
+
+
+## [0.1.1] - 2020-03-02
 
 ## Changed
 
 - Viewport scale (aka zoom) now adds/removes a ratio of the current scale
+
 
 ## [0.1.0] - 2020-03-01
 
