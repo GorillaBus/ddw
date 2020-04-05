@@ -98,38 +98,9 @@ class Body {
 		this.velocity.multiplyBy(0);
 	}
 
-	gravitateTo(target, gravityFactor) {
-		const G = 9.8;
-		const diff = target.location.substract(this.location);
-		const distance = diff.getLength();
-		const minDistance = target.getRadius() + this.getRadius();
-
-		if (minDistance > distance) {
-			return;
-		}
-
-		const force = G * (this.mass * target.mass / (distance * distance));
-		diff.normalize();
-		diff.multiplyBy(force);
-
-		this.applyForce(diff);
-	}
-
 	distanceTo(target) {
 		return target.location.substract(this.location).getLength() - this.getRadius() - target.getRadius();
 	}
-
-	gravitateToCell(target) {
-		const diff = target.massCentroid.substract(this.location);
-		const distance = diff.getLength();
-		if (distance < this.getRadius() * 2) return;
-		const force = this.mass * target.mass / (distance * distance);
-		diff.normalize();
-		diff.multiplyBy(force);
-		this.velocity.addTo(diff);
-	}
-
-
 
 }
 

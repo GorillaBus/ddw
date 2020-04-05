@@ -1,6 +1,7 @@
 const Body = require("./Body");
 const Model = require("./Model");
 const Utils = require("./Utils");
+const Geometry = require("./Geometry");
 
 class Viewport extends Body {
 
@@ -17,10 +18,10 @@ class Viewport extends Body {
           ]
         })
 		});
+    this.geometry = Geometry;
     this.width = settings.width || 800;
     this.height = settings.height || 600;
 		this.attached = settings.attachTo || false;
-    this.intersector = settings.intersector;
     this.transitions = [];
 	}
 
@@ -46,7 +47,7 @@ class Viewport extends Body {
 	}
 
   intersects(body) {
-    return this.intersector.rectangleRectangle(body.world, this.world);
+    return this.geometry.rectangleRectangleIntersection(body.world, this.world);
   }
 
   attachTo(body) {

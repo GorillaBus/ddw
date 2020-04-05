@@ -1,9 +1,11 @@
 const GlobalInteraction = require("./GlobalInteraction");
+const Physics = require("./Physics");
 
 class Gravity extends GlobalInteraction {
 
   constructor(settings) {
     super(settings);
+    this.physics = Physics;
     this.gravitate = this.gravitate.bind(this);
   }
 
@@ -12,7 +14,7 @@ class Gravity extends GlobalInteraction {
   }
 
   gravitate(bodyA, bodyB) {
-    bodyA.gravitateTo(bodyB);
+    this.physics.gravity(bodyA, bodyB);
   }
 
 }

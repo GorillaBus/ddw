@@ -1,9 +1,13 @@
 const SpatialInteraction = require("./SpatialInteraction");
+const Physics = require("./Physics");
+const Geometry = require("./Geometry");
 
 class Collision extends SpatialInteraction {
 
   constructor(settings) {
     super(settings);
+    this.physics = Physics;
+    this.geometry = Geometry;
     this.intersector = settings.intersector;
     this.resolver = settings.resolver;
     this.collision = this.collision.bind(this);
@@ -14,9 +18,9 @@ class Collision extends SpatialInteraction {
   }
 
   collision(bodyA, bodyB) {
-    const intersection = this.intersector.circleCircle(bodyA.world, bodyB.world);
+    const intersection = this.geometry.circleCircleIntersection(bodyA.world, bodyB.world);
     if (intersection) {
-      this.resolver.elastic(bodyA, bodyB, intersection);
+      this.physics.elasticCollision(bodyA, bodyB, intersection);
     }
   }
 
