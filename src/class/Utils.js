@@ -38,6 +38,28 @@ class Utils {
     return this.randomRange(-Math.PI, Math.PI);
   }
 
+  componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+  }
+
+  rgbToHex(r, g, b) {
+    return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+  }
+
+  hexToRgb(hex) {
+   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+   return result ? {
+     r: parseInt(result[1], 16),
+     g: parseInt(result[2], 16),
+     b: parseInt(result[3], 16)
+   } : null;
+ }
+
+ randomColor() {
+   return "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
+ }
+
 }
 
 const instance = new Utils();
