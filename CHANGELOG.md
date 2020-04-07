@@ -7,6 +7,20 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [0.2.0] - 2020-03-07
+
+## Added
+
+- Geometry class
+- Physics class
+- Viewport transitions
+- Drawing of Body inner shadows from a light source
+
+# Removed
+
+- Intersector class
+- Collision Handler class
+
 
 ## [0.1.2] - 2020-03-05
 
