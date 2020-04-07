@@ -7,6 +7,7 @@ class Scene {
     this.bodies = settings.bodies || [];
 		this.width = settings.width || 800;
 		this.height = settings.height || 600;
+		this.lightSource = settings.lightSource || null;
     this.viewport = settings.viewport;
     this.drawer = settings.drawer;
 		this.ctx = settings.ctx;
@@ -57,11 +58,20 @@ class Scene {
 	}
 
 	draw() {
+		const lightSourceViewModel = this.lightSource ? this.viewport.getRelativeView(this.lightSource):null;
+
     for (let i=0, len=this.bodies.length; i<len; i++) {
       const body = this.bodies[i];
       if (this.viewport.intersects(body)) {
-        const perspectiveView = this.viewport.getRelativeView(body);
-        this.drawer.drawModel(perspectiveView, this.ctx);
+
+				const bodyViewModel = this.viewport.getRelativeView(body);
+
+				this.drawer.drawModel(bodyViewModel, this.ctx);
+
+				if (body.drawShadow && this.lightSource && this.lightSource.uuid !== body.uuid) {
+					this.drawer.drawInnerShadow(bodyViewModel, lightSourceViewModel, this.ctx);
+				}
+
       }
     }
 
