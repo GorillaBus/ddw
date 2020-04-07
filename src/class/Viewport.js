@@ -96,12 +96,13 @@ class Viewport extends Body {
     }
   }
 
-  transitionTo(body, steps) {
+  transitionTo(body, steps, zoom) {
     steps = steps || 100;
+    zoom = zoom || 2;
     const t = {
       steps,
       translate: body,
-      scale: 6,
+      scale: zoom,
       end: () => {
         this.attachTo(body);
       }
