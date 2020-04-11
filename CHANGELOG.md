@@ -7,6 +7,18 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [0.2.1] - 2020-03-11
+
+## Added
+
+- Model gradients and filters (2d context)
+- Children models (model hierarchy base)
+
+## Changed
+
+- PolygonGenerator now returns an array of points instead of a Model instance
+
+
 ## [0.2.0] - 2020-03-07
 
 ## Added
