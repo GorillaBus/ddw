@@ -47,7 +47,20 @@ class Viewport extends Body {
 	}
 
   intersects(body) {
-    return this.geometry.rectangleRectangleIntersection(body.world, this.world);
+    const main = this.geometry.rectangleRectangleIntersection(body.world, this.world);
+    if (main) {
+      return main;
+    }
+    if (body.world.children.length > 0) {
+      for (let i=0,len=body.world.children.length; i<len; i++) {
+        const child = body.world.children[i];
+        const itc = this.geometry.rectangleRectangleIntersection(child, this.world);
+        if (itc) {
+          return itc;
+        }
+      }
+    }
+    return false;
   }
 
   attachTo(body) {

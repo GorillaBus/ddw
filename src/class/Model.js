@@ -4,11 +4,14 @@ class Model {
     this.points = settings.points || [];
 		this.strokeColor = settings.strokeColor || null;
     this.fillColor = settings.fillColor || null;
+    this.fillGradient = settings.fillGradient || null;
+		this.filter = settings.filter || null;
 		this.bounds = this.getBounds();
 		this.center = this.getCenter();
 		this.width = this.bounds.xMax - this.bounds.xMin;
 		this.height = this.bounds.yMax - this.bounds.yMin;
 		this.radius = Math.max(this.width, this.height) / 2;
+		this.children = settings.children || [];
 	}
 
   getPoints() {
@@ -43,15 +46,18 @@ class Model {
     const transformed = [];
 		for (let j=0,len=this.points.length; j<len; j++) {
       let p = this.points[j];
-			p = this.rotatePoint(p, r);
-			p = this.scalePoint(p, s);
-		  p = this.translatePoint(p, t);
+			if (r !== null) { p = this.rotatePoint(p, r); }
+			if (s !== null) { p = this.scalePoint(p, s); }
+			if (t !== null) { p = this.translatePoint(p, t); }
 			transformed.push(p);
 		}
-    return new Model({
+    return new this.constructor({
       points: transformed,
       strokeColor: this.strokeColor,
-      fillColor: this.fillColor
+      fillColor: this.fillColor,
+			fillGradient: this.fillGradient,//this.fillGradient ? this.transformGradient(this.fillGradient, r, s, t):null,
+			filter: this.filter,
+			children: this.children.map(c => c.transform(r, s, t))
     });
 	}
 
@@ -59,15 +65,18 @@ class Model {
     const transformed = [];
 		for (let j=0,len=this.points.length; j<len; j++) {
       let p = this.points[j];
-		  p = this.translatePoint(p, t);
-			p = this.scalePoint(p, s);
-			p = this.rotatePoint(p, r);
+			if (t !== null) { p = this.translatePoint(p, t); }
+			if (s !== null) { p = this.scalePoint(p, s); }
+			if (r !== null) { p = this.rotatePoint(p, r); }
 			transformed.push(p);
 		}
-    return new Model({
+    return new this.constructor({
       points: transformed,
       strokeColor: this.strokeColor,
-      fillColor: this.fillColor
+      fillColor: this.fillColor,
+			fillGradient: this.fillGradient,
+			filter: this.filter,
+			children: this.children.map(c => c.transformInversion(t, s, r))
     });
 	}
 

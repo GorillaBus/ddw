@@ -4,6 +4,12 @@ class ModelDrawer {
 
 	drawModel(model, ctx) {
     const points = model.getPoints();
+
+		if (model.filter) {
+			ctx.save()
+			ctx.filter = model.filter;
+		}
+
 		ctx.beginPath();
 		for (let i = 0, len=points.length; i<len; i++) {
 			const a = points[i];
@@ -14,14 +20,27 @@ class ModelDrawer {
 			ctx.lineTo(b[0], b[1]);
 		}
 		ctx.closePath();
+
 		if (model.strokeColor) {
 			ctx.strokeStyle = model.strokeColor;
 			ctx.stroke();
 		}
+
 		if (model.fillColor) {
 			ctx.fillStyle = model.fillColor;
 			ctx.fill();
 		}
+
+		if (model.fillGradient) {
+			ctx.fillStyle = this.createRadialGradient(model, ctx);
+			ctx.fill();
+		}
+
+		if (model.filter) {
+			ctx.restore();
+		}
+
+		model.children.map(m => this.drawModel(m, ctx));
 	}
 
 	drawBoundingRectangle(model, ctx) {
@@ -76,6 +95,19 @@ class ModelDrawer {
 	  ctx.closePath();
 
 	  ctx.restore();
+	}
+
+	createRadialGradient(model, ctx) {
+		const gradient = ctx.createRadialGradient(model.center[0],
+																							model.center[1],
+																							0,
+																							model.center[0],
+																							model.center[1],
+																							model.radius);
+
+		gradient.addColorStop(0, model.fillGradient.stop1);
+		gradient.addColorStop(1, model.fillGradient.stop2);
+		return gradient;
 	}
 
 }
