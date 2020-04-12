@@ -83,13 +83,13 @@ class Viewport extends Body {
 
         // Remove transition
         if (t.steps === 0) {
-          t.end();
+          if (typeof t.end === 'function') t.end();
           this.transitions.splice(i, 1);
           continue;
         }
 
         // Translation
-        if (t.hasOwnProperty('translate')) {
+        if (t['translate']) {
           const dir = t.translate.location.add(t.translate.velocity).substract(this.location);
           const dist = dir.getLength();
           const translateStep = dist / t.steps;
@@ -99,7 +99,7 @@ class Viewport extends Body {
         }
 
         // Scale
-        if (t.hasOwnProperty('scale')) {
+        if (t['scale']) {
           const scaleStep = (t.scale - this.scale) / t.steps;
           this.scale += scaleStep;
         }
@@ -109,16 +109,16 @@ class Viewport extends Body {
     }
   }
 
-  transitionTo(body, steps, zoom) {
+  transitionTo(body, steps, zoom, cb) {
+    body = body || null;
     steps = steps || 100;
     zoom = zoom || 2;
+    cb = cb || null;
     const t = {
       steps,
       translate: body,
       scale: zoom,
-      end: () => {
-        this.attachTo(body);
-      }
+      end: cb
     };
     this.addTransition(t);
   }
