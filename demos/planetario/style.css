@@ -1,0 +1,102 @@
+HTML, BODY {
+  width: 100%;
+  height: 100%;
+  overflow:hidden;
+  margin: 0;
+  padding: 0;
+  background: #315483;
+  color: #ffffff;
+  font-family: "Open Sans", "Segoe UI", Tahoma, sans-serif;
+}
+
+CANVAS {
+  background: #000000;
+  z-indx: 0;
+}
+
+.modal {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(0,0,0,0.2);
+}
+
+.message {
+  positon: relative;
+  width: 55%;
+  margin-top: 15%;
+  padding: 50px 50px 0 50px;
+  margin:  10% auto;
+  background: rgba(55, 15, 188, 0.1);
+  border: 1px rgba(55, 15, 188, 0.3) solid;
+  border-radius: 3px;
+}
+
+.btn {
+  background: rgba(55, 15, 188, 0.3);
+  border: 1px rgba(55, 15, 188, 0.3) solid;
+  padding: 15px;
+  cursor: pointer;
+  color: #aaaaaa;
+  font-size: 16px;
+}
+
+.btn:hover {
+  background: rgba(55, 15, 188, 0.5);
+  color: #ffffff;
+}
+
+.center {
+  margin: 0 auto;
+  display: block;
+}
+
+.foot {
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  line-height: 70px;
+  font-size: 10px;
+  text-align: right;
+}
+
+.controls {
+  margin-top:70px;
+}
+
+a, a:link, a:visited, a:active {
+  color: #aaaaaa;
+  font-style: none;
+  text-decoration:none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h2 {
+  margin-top: 0;
+  text-shadow: 4px 4px 0px rgba(55, 15, 188, 0.5);
+  margin: none;
+  padding: none;
+}
+
+h3 {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+p {
+  margin-top: 30px;
+}
+
+ul {
+  margin-top: 30px;
+}
+
+ul li {
+  margin-bottom: 15px;
+}
