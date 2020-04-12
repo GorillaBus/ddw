@@ -85,7 +85,7 @@ class ModelDrawer {
 
 	  // Shadow model
 	  const gradient = ctx.createRadialGradient(shadowVector.getX(), shadowVector.getY(), shadowModelRadius * shadowSpread, shadowVector.getX(), shadowVector.getY(), shadowModelRadius);
-	  gradient.addColorStop(0, "rgba(0, 0, 0, 1)");
+	  gradient.addColorStop(0, "rgba(0, 0, 0, 0.9)");
 	  gradient.addColorStop(1, "rgba(0, 0, 0, 0.001)");
 
 	  ctx.beginPath();
