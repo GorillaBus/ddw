@@ -1,6 +1,6 @@
 {
   "name": "dw",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "DDW is a 2D graphics + physics engine.",
   "main": "index.js",
   "directories": {

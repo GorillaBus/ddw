@@ -7,6 +7,19 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [0.3.0] - 2020-03-13
+
+## Added
+
+- Physics: methods to compute the rquired orbital speed for a given mass and distance and orbital distance for a given mass and
+- Methods to find perpendicular vectors for a given line, defined as a pair of Vectors
+- Added first demo: "Planetario"
+
+# Changed
+
+- Viewport transitions nos accepts a callback function (can be used to chain transitions)
+
+
 ## [0.2.1] - 2020-03-11
 
 ## Added
