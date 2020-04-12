@@ -239,6 +239,28 @@ class Vector {
   }
 
   /**
+  * Computes the perpendicular vector from the defined from the current Vector instance to the given Vector.
+  * @method
+  * @param {Vector} vector - A vector object.
+  * @returns {Array} A an array of Vector objects (left and right)
+  */
+  perpTo(vector) {
+    const fromTarget = this.substract(vector);
+    fromTarget.normalize();
+    const perpLeft = new ddw.Vector({
+      x: fromTarget.getY(),
+      y: -fromTarget.getX(),
+      length: 1
+    });
+    const perpRight = new ddw.Vector({
+      x: -fromTarget.getY(),
+      y: fromTarget.getX(),
+      length: 1
+    });
+    return [ perpLeft, perpRight ];
+  }
+
+  /**
   * Computes the vector projection of the current instance along the given vector.
   * @method
   * @param {Vector} vector - A vector object.
@@ -357,6 +379,7 @@ class Vector {
     this.x = 0;
     this.y = 0;
   }
+
 };
 
 module.exports = Vector;
