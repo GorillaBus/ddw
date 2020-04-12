@@ -68,6 +68,16 @@ class Physics {
 		}
 	}
 
+  orbitDistanceBySpeed(body, target, speed) {
+    return (body.mass * target.mass) / speed;
+  }
+
+  orbitSpeedByDistance(body, target, G) {
+    G = G || 9.8;
+    const distance = body.distanceTo(target);
+    return Math.sqrt((G * target.mass) / distance);
+  }
+
 }
 
 module.exports = new Physics();
