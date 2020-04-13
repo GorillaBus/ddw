@@ -7,7 +7,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
-## [0.3.1] - 2020-03
+## [0.3.3] - 2020-03
+
+## Changed
+
+- Webpack build now exposses 'umd' library
+- NPM package settings
 
 
 ## [0.3.0] - 2020-03-13

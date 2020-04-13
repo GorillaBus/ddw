@@ -1,11 +1,10 @@
 {
   "name": "ddw",
-  "version": "0.3.1",
+  "version": "0.3.3",
   "description": "DDW is a 2D graphics + physics engine.",
-  "main": "index.js",
+  "main": "dist/ddw.js",
   "files": [
-    "dist/",
-    "index.js",
+    "dist/ddw.js",
     "LICENSE",
     "CHANGELOG.md",
     "README.md"
@@ -13,9 +12,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/GorillaBus/ddw.git"
-  },
-  "directories": {
-    "demos": "demos/"
   },
   "scripts": {
     "dev": "webpack --mode development -w",
