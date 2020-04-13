@@ -9,3 +9,16 @@ Documentation is being developed and should be available during the next few day
 An implementation demo can be found in the /demos. An NPM package of the library is also on its way.
 
 Feel free to throw a hand if you know how to improve the architecture, physics computation, optmize or add features.
+
+## Use it
+
+Althought this is work in progress it is perfectly usable. If you want to run the demo or create a new Scene, just **clone** the repo and load/require **DDW** from the **dist/** folder.
+
+## Develop it
+
+If you would like to develop:
+1- Clone the repo
+2- Install dependencies `npm install`
+3- Run webpack with watch option: `npm run dev`
+3- Serve it: `npx serve`
+
