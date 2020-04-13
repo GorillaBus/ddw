@@ -7,6 +7,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [0.3.1] - 2020-03
+
+
 ## [0.3.0] - 2020-03-13
 
 ## Added
@@ -20,7 +23,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Viewport transitions nos accepts a callback function (can be used to chain transitions)
 
 
-## [0.2.1] - 2020-03-11
+## [0.2.1] - 2020-04-11
 
 ## Added
 
@@ -32,7 +35,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - PolygonGenerator now returns an array of points instead of a Model instance
 
 
-## [0.2.0] - 2020-03-07
+## [0.2.0] - 2020-04-07
 
 ## Added
 
@@ -47,7 +50,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Collision Handler class
 
 
-## [0.1.2] - 2020-03-05
+## [0.1.2] - 2020-04-05
 
 ## Changed
 
@@ -61,14 +64,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Added mapRange() method to Utils class
 
 
-## [0.1.1] - 2020-03-02
+## [0.1.1] - 2020-04-02
 
 ## Changed
 
 - Viewport scale (aka zoom) now adds/removes a ratio of the current scale
 
 
-## [0.1.0] - 2020-03-01
+## [0.1.0] - 2020-04-01
 
 ## Changed
 
@@ -113,13 +116,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Corrected Viewport transformation
 
 
-## [0.0.5] - 2020-02-26
+## [0.0.5] - 2020-03-26
 
 ### Added
 
 - Interactions schema with broad phase detection grid (spatial partitioning)
 
-## [0.0.4] - 2020-02-10
+## [0.0.4] - 2020-03-10
 
 ### Added
 
@@ -130,21 +133,21 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Decoupled body management logic from Scene class
 
 
-## [0.0.3] - 2020-02-08
+## [0.0.3] - 2020-03-08
 
 ### Added
 
 - CollisionResolver class to handle collision resolution logic
 - Intersector class with diferent intersection tests between common shapes
 
-## [0.0.2] - 2020-02-08
+## [0.0.2] - 2020-03-08
 
 ### Fixed
 
 - Gravitation formula
 - Body.getRadius() now returns the correct value
 
-## [0.0.1] - 2020-02-01
+## [0.0.1] - 2020-03-01
 
 ### Added
 
