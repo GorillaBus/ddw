@@ -27,7 +27,7 @@ const init = async () => {
   solarSys.addStar({
     mass: 1000000,
     fillColor: "rgba(241, 184, 45, 1)",
-    brightnessColor: "rgba(255, 255, 255, 0.05)",
+    brightnessColor: "rgba(255, 255, 255, 0.07)",
     innerLightColor: "rgba(255, 255, 255, 0.4)",
     filter: "blur(0.25px)",
     lightRadius: 40

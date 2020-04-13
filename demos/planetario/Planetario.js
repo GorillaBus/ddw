@@ -116,6 +116,7 @@ class Planetario {
     // Body model
     const model = new ddw.Model({
       points: poly,
+      filter: settings.filter,
       fillColor: settings.fillColor,
       fillGradient: {
         stop1: stopA1,
