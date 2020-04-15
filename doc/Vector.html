@@ -783,7 +783,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Vector.js.html">Vector.js</a>, <a href="Vector.js.html#line265">line 265</a>
+        <a href="Vector.js.html">Vector.js</a>, <a href="Vector.js.html#line287">line 287</a>
     </li></ul></dd>
     
 
@@ -942,7 +942,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Vector.js.html">Vector.js</a>, <a href="Vector.js.html#line301">line 301</a>
+        <a href="Vector.js.html">Vector.js</a>, <a href="Vector.js.html#line323">line 323</a>
     </li></ul></dd>
     
 
@@ -1101,7 +1101,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Vector.js.html">Vector.js</a>, <a href="Vector.js.html#line284">line 284</a>
+        <a href="Vector.js.html">Vector.js</a>, <a href="Vector.js.html#line306">line 306</a>
     </li></ul></dd>
     
 
@@ -1211,7 +1211,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Vector.js.html">Vector.js</a>, <a href="Vector.js.html#line312">line 312</a>
+        <a href="Vector.js.html">Vector.js</a>, <a href="Vector.js.html#line334">line 334</a>
     </li></ul></dd>
     
 
@@ -1529,7 +1529,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Vector.js.html">Vector.js</a>, <a href="Vector.js.html#line336">line 336</a>
+        <a href="Vector.js.html">Vector.js</a>, <a href="Vector.js.html#line358">line 358</a>
     </li></ul></dd>
     
 
@@ -2693,7 +2693,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Vector.js.html">Vector.js</a>, <a href="Vector.js.html#line346">line 346</a>
+        <a href="Vector.js.html">Vector.js</a>, <a href="Vector.js.html#line368">line 368</a>
     </li></ul></dd>
     
 
@@ -3077,7 +3077,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Vector.js.html">Vector.js</a>, <a href="Vector.js.html#line323">line 323</a>
+        <a href="Vector.js.html">Vector.js</a>, <a href="Vector.js.html#line345">line 345</a>
     </li></ul></dd>
     
 
@@ -3272,7 +3272,7 @@
     
 
     
-    <h4 class="name" id="project"><span class="type-signature"></span>project<span class="signature">(vector)</span><span class="type-signature"> &rarr; {<a href="Vector.html">Vector</a>}</span></h4>
+    <h4 class="name" id="perpTo"><span class="type-signature"></span>perpTo<span class="signature">(vector)</span><span class="type-signature"> &rarr; {Array}</span></h4>
     
 
     
@@ -3280,7 +3280,7 @@
 
 
 <div class="description">
-    Computes the vector projection of the current instance along the given vector.
+    Computes the perpendicular vector from the defined from the current Vector instance to the given Vector.
 </div>
 
 
@@ -3402,6 +3402,165 @@
 
         
 <div class="param-desc">
+    A an array of Vector objects (left and right)
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="project"><span class="type-signature"></span>project<span class="signature">(vector)</span><span class="type-signature"> &rarr; {<a href="Vector.html">Vector</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Computes the vector projection of the current instance along the given vector.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>vector</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="Vector.html">Vector</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A vector object.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Vector.js.html">Vector.js</a>, <a href="Vector.js.html#line269">line 269</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
     A new vector instance representing the computed projection.
 </div>
 
@@ -3483,7 +3642,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="Vector.js.html">Vector.js</a>, <a href="Vector.js.html#line356">line 356</a>
+        <a href="Vector.js.html">Vector.js</a>, <a href="Vector.js.html#line378">line 378</a>
     </li></ul></dd>
     
 
@@ -4510,13 +4669,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Body.html">Body</a></li><li><a href="BodyManager.html">BodyManager</a></li><li><a href="BroadPhaseTester.html">BroadPhaseTester</a></li><li><a href="CollisionInteraction.html">CollisionInteraction</a></li><li><a href="Drawer.html">Drawer</a></li><li><a href="Intersector.html">Intersector</a></li><li><a href="Model.html">Model</a></li><li><a href="Scene.html">Scene</a></li><li><a href="ScenePlayer.html">ScenePlayer</a></li><li><a href="Shape.html">Shape</a></li><li><a href="ShapeGenerator.html">ShapeGenerator</a></li><li><a href="Utils.html">Utils</a></li><li><a href="Vector.html">Vector</a></li><li><a href="Viewport.html">Viewport</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Body.html">Body</a></li><li><a href="Collision.html">Collision</a></li><li><a href="ModelDrawer.html">ModelDrawer</a></li><li><a href="Physics.html">Physics</a></li><li><a href="PolygonGenerator.html">PolygonGenerator</a></li><li><a href="Vector.html">Vector</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Sat Feb 29 2020 17:50:34 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Thu Apr 16 2020 00:52:17 GMT+0200 (CEST)
 </footer>
 
 <script> prettyPrint(); </script>
