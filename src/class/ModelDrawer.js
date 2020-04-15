@@ -1,7 +1,19 @@
 const Vector = require("./Vector");
 
+/**
+ * Draw <i>Model</i> class objects on a 2D context (html canvas) by joining each of its points with lines, filling the shape with color or gradients and also rendering other effects like inner shadow or 2D context filters.
+ * @summary View file: {@link https://github.com/GorillaBus/ddw/blob/master/src/class/BodyManager.js https://github.com/GorillaBus/ddw/blob/master/src/class/ModelDrawer.js}.
+ * @class
+ */
+
 class ModelDrawer {
 
+	/**
+	* Paints a representation of the given <i>Model</i> class object with all its features on the given 2D context. A <i>Model</i> object can have different rendering properties from fill and stroke colors to a fill gradient, but also any 2D rendering context filters like blur.
+	* @method
+	* @param {Model} model - A Model object to be drawn.
+	* @param {Object} ctx - A 2D rendering context object from the html canvas.
+	*/
 	drawModel(model, ctx) {
     const points = model.getPoints();
 
@@ -43,6 +55,12 @@ class ModelDrawer {
 		model.children.map(m => this.drawModel(m, ctx));
 	}
 
+	/**
+	* Draws the bounding rectangle of a <i>Model</i> object, generally for debugging purposes.
+	* @method
+	* @param {Model} model - A Model object to be drawn.
+	* @param {Object} ctx - A 2D rendering context object from the html canvas.
+	*/
 	drawBoundingRectangle(model, ctx) {
 		ctx.beginPath();
     ctx.strokeStyle = "yellow";
@@ -50,6 +68,12 @@ class ModelDrawer {
     ctx.closePath();
 	}
 
+	/**
+	* Draws the bounding circle of a <i>Model</i> object, generally for debugging purposes.
+	* @method
+	* @param {Model} model - A Model object to be drawn.
+	* @param {Object} ctx - A 2D rendering context object from the html canvas.
+	*/
 	drawBoundingCircle(model, ctx) {
 		ctx.beginPath();
     ctx.strokeStyle = "yellow";
@@ -58,6 +82,17 @@ class ModelDrawer {
 		ctx.closePath();
 	}
 
+	/**
+	* Paints a circular inner shadow over the <i>Model</i> that depends on a light source.
+	* @method
+	* @experimental
+	* @param {Model} model - A Model object to render its inner shadow.
+	* @param {Model} lightSource - A Model object that represents the source of the light
+	* @param {Object} ctx - A 2D rendering context object from the html canvas.
+	* @param {Model} [shadowScale=6] - A relation between the size of the <i>Model</i> and its inner shadow.
+	* @param {Model} [shadowSpread=0.92] - The rational length of the gradient that decays from full shadow to none.
+	* @param {Model} [shadowDisplacement=0.94] - A ratio that express how far away from the <i>Model</i>'s center its shadow will appear.
+	*/
 	drawInnerShadow(model, lightSource, ctx, shadowScale, shadowDisplacement, shadowSpread) {
 		if (model.radius < 1) { return; }
 
@@ -97,6 +132,10 @@ class ModelDrawer {
 	  ctx.restore();
 	}
 
+	/**
+	* Creates a 2D rendering context radial gradient from a <i>Model</i>'s fillGradient property.
+	* @method
+	*/
 	createRadialGradient(model, ctx) {
 		const gradient = ctx.createRadialGradient(model.center[0],
 																							model.center[1],
