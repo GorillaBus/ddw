@@ -10,6 +10,9 @@ An implementation demo can be found in the /demos. An NPM package of the library
 
 Feel free to throw a hand if you know how to improve the architecture, physics computation, optmize or add features.
 
+### Documentation
+
+Find API documentation in the `/doc` directory and other technical information about how **DDW** works in the project wiki. Documentation is in active development, so expect to find updates.
 
 ### Use it
 
@@ -29,4 +32,4 @@ If you would like to develop:
 
 ### Live demo
 
-Check the "Planetario" DDW demo at: https://cdn.statically.io/gh/GorillaBus/ddw/8f1cc549/demos/planetario/index.html
+Check the "Planetario" DDW demo at: https://cdn.statically.io/gh/GorillaBus/ddw/8f1cc549/demos/planetario/index.html.
