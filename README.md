@@ -4,15 +4,15 @@
 
 **DDW** is a 2D graphics and physics library meant to be used in the browser but also in Node, in a way that computing simulations and drawing the world can happen in sepparated process or systems, through the local system or a network socket or API.
 
-Documentation is being developed and should be available during the next few days. Also a description of the pipeline process. Note that the current documentation files and wiki is outdated because of a recent refactor.
-
 An implementation demo can be found in the /demos. An NPM package of the library is also on its way.
 
 Feel free to throw a hand if you know how to improve the architecture, physics computation, optmize or add features.
 
+
 ### Documentation
 
 Find API documentation in the `/doc` directory and other technical information about how **DDW** works in the project wiki. Documentation is in active development, so expect to find updates.
+
 
 ### Use it
 
