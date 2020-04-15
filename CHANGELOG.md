@@ -7,7 +7,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
-## [0.3.3] - 2020-03
+## [0.4.0] - 2020-03-15
+
+## Added
+
+- API documentation for many classes
+
+
+## [0.3.3] - 2020-03-14
 
 ## Changed
 
